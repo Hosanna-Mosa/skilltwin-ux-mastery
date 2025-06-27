@@ -206,7 +206,7 @@ const Home = () => {
                     ))}
                   </ul>
                   <Button className="w-full" size="lg">
-                    Get Started
+                    Get Start
                   </Button>
                 </CardContent>
               </Card>
