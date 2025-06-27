@@ -41,7 +41,7 @@ const Home = () => {
               <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
                 Get Started Today
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
                 View Services
               </Button>
             </div>
@@ -206,7 +206,7 @@ const Home = () => {
                     ))}
                   </ul>
                   <Button className="w-full" size="lg">
-                    Get Started
+                    Get Start
                   </Button>
                 </CardContent>
               </Card>
@@ -318,7 +318,7 @@ const Home = () => {
             <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
               Start Your Journey
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
               Schedule a Call
             </Button>
           </div>
