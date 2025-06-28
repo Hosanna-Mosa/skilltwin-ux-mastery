@@ -124,7 +124,9 @@ const Home = () => {
             {benefits.map((benefit, index) => {
               const Icon = iconMap[benefit.icon];
               return (
-              
+
+                <Card key={index} className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                       <Icon className="h-8 w-8 text-blue-600" />
@@ -315,7 +317,11 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {trainingPrograms.map((program) => (
+
+              <Card key={program.id} className=" text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+
               
+
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={program.image}

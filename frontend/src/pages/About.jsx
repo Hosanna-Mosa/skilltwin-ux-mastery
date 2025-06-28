@@ -101,7 +101,7 @@ const About = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="h-full">
+            <Card className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center">
                   <Target className="h-6 w-6 mr-3 text-blue-600" />
@@ -118,7 +118,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="h-full">
+            <Card className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
               <CardHeader>
                 <CardTitle className="text-2xl flex items-center">
                   <Heart className="h-6 w-6 mr-3 text-blue-600" />
@@ -151,7 +151,7 @@ const About = () => {
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <Card key={index} className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                       <Icon className="h-8 w-8 text-blue-600" />

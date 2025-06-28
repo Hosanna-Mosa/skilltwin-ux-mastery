@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
