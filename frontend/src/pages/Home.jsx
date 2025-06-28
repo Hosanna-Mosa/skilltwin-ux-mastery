@@ -315,10 +315,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {trainingPrograms.map((program) => (
-              <Card
-                key={program.id}
-                className="hover:shadow-lg transition-shadow"
-              >
+              
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={program.image}
