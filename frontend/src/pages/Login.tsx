@@ -132,31 +132,7 @@ const Login = () => {
                 </div>
               </div>
 
-           
-                {loading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Signing in...
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center">
-                    Sign In
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </div>
-                )}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Don't have an account?{" "}
-                <Link
-                  to="/register"
-                  className="text-blue-600 hover:text-blue-800 font-medium underline"
-                >
-                  Sign up here
-                </Link>
-              </p>
+      
             </div>
           </CardContent>
         </Card>
