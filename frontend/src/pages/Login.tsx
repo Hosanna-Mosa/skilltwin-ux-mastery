@@ -157,7 +157,6 @@ const Login = () => {
               className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
               disabled={loading}
             >
-       
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
@@ -172,7 +171,7 @@ const Login = () => {
                 Sign up here
               </Link>
             </p>
-          </div>More actions
+          </div>
         </CardContent>
       </Card>
     </div>
