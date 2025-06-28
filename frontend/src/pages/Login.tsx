@@ -162,11 +162,6 @@ const Login = () => {
         </Card>
       </div>
 
-      <ForgotPasswordDialog
-        open={forgotPasswordOpen}
-        onOpenChange={setForgotPasswordOpen}
-      />
-    </>
   );
 };
 
