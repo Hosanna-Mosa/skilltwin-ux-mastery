@@ -21,6 +21,7 @@ import {
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -86,14 +88,14 @@ const Register = () => {
     try {
       // TODO: Replace with actual API call
       // const response = await authAPI.register(formData);
-      // localStorage.setItem('token', response.token);
+      // login(response.token, response.user);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       // For demo purposes, accept any valid form data
-      localStorage.setItem("token", "demo-token");
-      navigate("/dashboard");
+      login("demo-token", { name: formData.name, email: formData.email });
+      navigate("/");
     } catch (err: any) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
