@@ -8,12 +8,14 @@ const inquiryRoutes = require("./routes/inquiry");
 const enrollRoutes = require("./routes/enroll");
 const adminRoutes = require("./routes/admin");
 const { errorHandler } = require("./middleware/errorHandler");
+const configDB = require("./config/db");
 require("dotenv").config();
 
 const app = express();
+const PORT = 8000;
 
 // Middleware
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "*", credentials: true }));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
@@ -27,4 +29,13 @@ app.use("/api/admin", adminRoutes);
 // Error Handler
 app.use(errorHandler);
 
-module.exports = app;
+app.get("/" , (req,res) => {
+    res.send("Server ok");
+});
+
+
+app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+});
+
+configDB();

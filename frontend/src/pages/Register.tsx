@@ -22,6 +22,8 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { apiService } from "../services/api";
+import { useToast } from "../hooks/use-toast";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -38,38 +40,87 @@ const Register = () => {
 
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const hadError = !!error;
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setError(""); // Clear error when user starts typing
+
+    // Clear error when user starts typing
+    if (error) {
+      setError("");
+      // Show success toast if there was an error and user is fixing it
+      if (hadError) {
+        toast({
+          title: "Good!",
+          description: "Keep going with your input.",
+        });
+      }
+    }
   };
 
   const validateForm = () => {
     if (!formData.name.trim()) {
-      setError("Name is required");
+      const errorMsg = "Name is required";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     if (!formData.email.trim()) {
-      setError("Email is required");
+      const errorMsg = "Email is required";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     if (!formData.email.includes("@")) {
-      setError("Please enter a valid email address");
+      const errorMsg = "Please enter a valid email address";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
+      const errorMsg = "Password must be at least 6 characters long";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
+      const errorMsg = "Passwords do not match";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     if (!acceptTerms) {
-      setError("Please accept the terms and conditions");
+      const errorMsg = "Please accept the terms and conditions";
+      setError(errorMsg);
+      toast({
+        title: "Validation Error",
+        description: errorMsg,
+        variant: "destructive",
+      });
       return false;
     }
     return true;
@@ -86,18 +137,43 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // TODO: Replace with actual API call
-      // const response = await authAPI.register(formData);
-      // login(response.token, response.user);
+      // DUMMY REGISTRATION FOR TESTING (uncomment to use)
+      // await new Promise((resolve) => setTimeout(resolve, 1500));
+      // if (formData.name && formData.email && formData.password) {
+      //   login("dummy-jwt-token-456", { name: formData.name, email: formData.email });
+      //   toast({
+      //     title: "Registration Successful!",
+      //     description: "Welcome to SkillTwin! Your account has been created.",
+      //   });
+      //   navigate("/");
+      //   return;
+      // } else {
+      //   throw new Error("Please fill in all required fields");
+      // }
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // REAL API CALL
+      const { confirmPassword, ...registerData } = formData;
+      const response = await apiService.register(registerData);
+      login(response.token, { name: formData.name, email: formData.email });
 
-      // For demo purposes, accept any valid form data
-      login("demo-token", { name: formData.name, email: formData.email });
+      // Show success toast
+      toast({
+        title: "Registration Successful!",
+        description: "Welcome to SkillTwin! Your account has been created.",
+      });
+
       navigate("/");
     } catch (err: any) {
-      setError(err.message || "Registration failed. Please try again.");
+      const errorMessage =
+        err.message || "Registration failed. Please try again.";
+      setError(errorMessage);
+
+      // Show error toast
+      toast({
+        title: "Registration Failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
