@@ -12,6 +12,7 @@ import {
 } from "../components/ui/card";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +24,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -40,15 +42,15 @@ const Login = () => {
     try {
       // TODO: Replace with actual API call
       // const response = await authAPI.login(formData);
-      // localStorage.setItem('token', response.token);
+      // login(response.token, response.user);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       // For demo purposes, accept any email/password
       if (formData.email && formData.password) {
-        localStorage.setItem("token", "demo-token");
-        navigate("/dashboard");
+        login("demo-token", { email: formData.email });
+        navigate("/");
       } else {
         throw new Error("Please fill in all fields");
       }

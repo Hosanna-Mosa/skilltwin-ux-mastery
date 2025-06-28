@@ -80,7 +80,7 @@ const Contact = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
               <CardHeader>
                 <div className="mx-auto bg-green-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                   <MessageCircle className="h-8 w-8 text-green-600" />
@@ -103,7 +103,7 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
               <CardHeader>
                 <div className="mx-auto bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                   <Send className="h-8 w-8 text-blue-600" />
@@ -281,7 +281,7 @@ const Contact = () => {
               </div>
 
               {/* FAQ Link */}
-              <Card>
+              <Card className="hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
                 <CardContent className="pt-6">
                   <h3 className="font-semibold text-lg mb-3">Have Questions?</h3>
                   <p className="text-gray-600 mb-4">
