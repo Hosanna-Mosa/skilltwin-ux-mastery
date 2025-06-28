@@ -1,5 +1,3 @@
-
-
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
