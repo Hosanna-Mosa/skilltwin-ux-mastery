@@ -1,12 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Zap, Shield, Clock, Star, ArrowRight, CheckCircle, Users, Code, Briefcase } from 'lucide-react';
-import InquiryForm from '@/components/InquiryForm';
-import { benefits, techStack, testimonials, pricingPlans, trainingPrograms, faqs } from '@/data';
+
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
