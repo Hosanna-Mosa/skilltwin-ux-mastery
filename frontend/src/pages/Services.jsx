@@ -58,7 +58,7 @@ const Services = () => {
             {services.map((service) => {
               const Icon = iconMap[service.icon];
               return (
-                <Card key={service.id} className="hover:shadow-lg transition-shadow h-full">
+                <Card key={service.id} className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer">
                   <CardHeader>
                     <div className="flex items-center space-x-3 mb-4">
                       <div className="bg-blue-100 p-3 rounded-lg">
@@ -259,7 +259,7 @@ const Services = () => {
             <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold" asChild>
               <Link to="/contact">Get Started Now</Link>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600" asChild>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600" asChild>
               <Link to="/trainings">View Training Programs</Link>
             </Button>
           </div>

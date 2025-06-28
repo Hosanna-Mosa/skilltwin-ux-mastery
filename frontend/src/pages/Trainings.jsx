@@ -60,7 +60,7 @@ const Trainings = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPrograms.map((program) => (
-              <Card key={program.id} className="hover:shadow-lg transition-shadow flex flex-col h-full">
+              <Card key={program.id} className="hover:shadow-lg transition-shadow flex flex-col h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer">
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img 
                     src={program.image} 
@@ -189,7 +189,7 @@ const Trainings = () => {
                 story: "The cloud-focused training gave me the skills I needed to transition from development to DevOps leadership. Couldn't be happier with the results."
               }
             ].map((story, index) => (
-              <Card key={index} className="h-full">
+              <Card key={index} className="h-full hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
                 <CardContent className="pt-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
@@ -222,7 +222,7 @@ const Trainings = () => {
             <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
               Enroll Now
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600">
               Schedule a Call
             </Button>
           </div>

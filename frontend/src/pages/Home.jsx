@@ -1,13 +1,40 @@
-
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Zap, Shield, Clock, Star, ArrowRight, CheckCircle, Users, Code, Briefcase } from 'lucide-react';
-import InquiryForm from '@/components/InquiryForm';
-import { benefits, techStack, testimonials, pricingPlans, trainingPrograms, faqs } from '@/data';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  Zap,
+  Shield,
+  Clock,
+  Star,
+  ArrowRight,
+  CheckCircle,
+  Users,
+  Code,
+  Briefcase,
+} from "lucide-react";
+import InquiryForm from "@/components/InquiryForm";
+import {
+  benefits,
+  techStack,
+  testimonials,
+  pricingPlans,
+  trainingPrograms,
+  faqs,
+} from "@/data";
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -32,20 +59,29 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Accelerate Your <span className="text-yellow-400">Tech Career</span>
+              Accelerate Your{" "}
+              <span className="text-yellow-400">Tech Career</span>
             </h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-              Expert job support, training programs, and mentorship to help you succeed in the competitive tech industry.
+              Expert job support, training programs, and mentorship to help you
+              succeed in the competitive tech industry.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3">
+              <Button
+                size="lg"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3"
+              >
                 Get Started Today
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white text-blue-600"
+              >
                 View Services
               </Button>
             </div>
-            
+
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
@@ -80,14 +116,18 @@ const Home = () => {
               Why Choose SkillTwin?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We provide comprehensive support to help you achieve your career goals with confidence.
+              We provide comprehensive support to help you achieve your career
+              goals with confidence.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {
               const Icon = iconMap[benefit.icon];
               return (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <Card
+                  key={index}
+                  className="text-center hover:shadow-lg transition-shadow"
+                >
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                       <Icon className="h-8 w-8 text-blue-600" />
@@ -117,7 +157,11 @@ const Home = () => {
           </div>
           <div className="flex flex-wrap justify-center gap-4">
             {techStack.map((tech, index) => (
-              <Badge key={index} variant="secondary" className="px-4 py-2 text-sm">
+              <Badge
+                key={index}
+                variant="secondary"
+                className="px-4 py-2 text-sm"
+              >
                 {tech}
               </Badge>
             ))}
@@ -137,9 +181,14 @@ const Home = () => {
             <Card className="text-center">
               <CardContent className="pt-8">
                 <div className="flex justify-center mb-4">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-500 fill-current" />
-                  ))}
+                  {[...Array(testimonials[currentTestimonial].rating)].map(
+                    (_, i) => (
+                      <Star
+                        key={i}
+                        className="h-5 w-5 text-yellow-500 fill-current"
+                      />
+                    )
+                  )}
                 </div>
                 <blockquote className="text-xl text-gray-700 mb-6">
                   "{testimonials[currentTestimonial].content}"
@@ -160,7 +209,7 @@ const Home = () => {
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? 'bg-blue-600' : 'bg-gray-300'
+                    index === currentTestimonial ? "bg-blue-600" : "bg-gray-300"
                   }`}
                 />
               ))}
@@ -181,36 +230,77 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {pricingPlans.map((plan, index) => (
-              <Card key={index} className={`relative ${plan.popular ? 'border-blue-500 shadow-lg' : ''}`}>
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </span>
-                  </div>
-                )}
-                <CardHeader className="text-center">
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <div className="text-4xl font-bold text-blue-600">
-                    {plan.price}<span className="text-lg text-gray-600">/{plan.period}</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-6">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button className="w-full" size="lg">
-                    Get Started
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+            <Card
+              className={`relative ${pricingPlans[0].popular ? "border-blue-500 shadow-lg" : ""} hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer `}
+            >
+              {pricingPlans[0].popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">
+                  {pricingPlans[0].name}
+                </CardTitle>
+                <div className="text-4xl font-bold text-blue-600">
+                  {pricingPlans[0].price}
+                  <span className="text-lg text-gray-600">
+                    /{pricingPlans[0].period}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 mb-12">
+                  {pricingPlans[0].features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button className="w-full mt-12" size="lg">
+                  Get Start
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card
+              className={`relative ${pricingPlans[1].popular ? "border-blue-500 shadow-lg" : ""} hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer`}
+            >
+              {pricingPlans[1].popular && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl">
+                  {pricingPlans[1].name}
+                </CardTitle>
+                <div className="text-4xl font-bold text-blue-600">
+                  {pricingPlans[1].price}
+                  <span className="text-lg text-gray-600">
+                    /{pricingPlans[1].period}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3 mb-6">
+                  {pricingPlans[1].features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button className="w-full" size="lg">
+                  Get Started
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -228,10 +318,13 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {trainingPrograms.map((program) => (
-              <Card key={program.id} className="hover:shadow-lg transition-shadow">
+              <Card
+                key={program.id}
+                className="hover:shadow-lg transition-shadow"
+              >
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
-                  <img 
-                    src={program.image} 
+                  <img
+                    src={program.image}
                     alt={program.title}
                     className="w-full h-full object-cover"
                   />
@@ -252,7 +345,9 @@ const Home = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Price:</span>
-                      <span className="font-bold text-blue-600 text-lg">{program.price}</span>
+                      <span className="font-bold text-blue-600 text-lg">
+                        {program.price}
+                      </span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -292,7 +387,11 @@ const Home = () => {
           </div>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg px-6">
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-white rounded-lg px-6"
+              >
                 <AccordionTrigger className="text-left font-semibold">
                   {faq.question}
                 </AccordionTrigger>
@@ -312,13 +411,21 @@ const Home = () => {
             Ready to Accelerate Your Career?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of successful professionals who have transformed their careers with SkillTwin.
+            Join thousands of successful professionals who have transformed
+            their careers with SkillTwin.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
+            <Button
+              size="lg"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold"
+            >
               Start Your Journey
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white text-blue-600">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white text-blue-600"
+            >
               Schedule a Call
             </Button>
           </div>
