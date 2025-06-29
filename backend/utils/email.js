@@ -15,23 +15,32 @@ const generateOTP = () => {
 };
 
 // Send OTP email
-const sendOTPEmail = async (email, otp) => {
+const sendOTPEmail = async (email, otp, userType = "user") => {
+  const isAdmin = userType === "admin";
+  const subject = isAdmin
+    ? "Admin Password Reset OTP - SkillTwin"
+    : "Password Reset OTP - SkillTwin";
+  const title = isAdmin ? "Admin Password Reset" : "Password Reset";
+  const description = isAdmin
+    ? "You requested a password reset for your SkillTwin Admin account. Use the OTP below to verify your identity and create a new password."
+    : "You requested a password reset for your SkillTwin account. Use the OTP below to verify your identity and create a new password.";
+
   const mailOptions = {
     from: process.env.EMAIL_USER || "laptoptest7788@gmail.com",
     to: email,
-    subject: "Password Reset OTP - SkillTwin",
+    subject: subject,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="margin: 0; font-size: 28px;">SkillTwin</h1>
-          <p style="margin: 10px 0 0 0; opacity: 0.9;">Password Reset Request</p>
+          <h1 style="margin: 0; font-size: 28px;">SkillTwin${isAdmin ? " Admin" : ""}</h1>
+          <p style="margin: 10px 0 0 0; opacity: 0.9;">${title} Request</p>
         </div>
         
         <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px;">
           <h2 style="color: #333; margin-bottom: 20px;">Reset Your Password</h2>
           
           <p style="color: #666; line-height: 1.6; margin-bottom: 25px;">
-            You requested a password reset for your SkillTwin account. Use the OTP below to verify your identity and create a new password.
+            ${description}
           </p>
           
           <div style="background: #fff; border: 2px dashed #667eea; border-radius: 8px; padding: 20px; text-align: center; margin: 25px 0;">
@@ -59,8 +68,8 @@ const sendOTPEmail = async (email, otp) => {
       </div>
     `,
   };
-  console.log('Camed to transporter');
-  
+  console.log("Camed to transporter");
+
   try {
     await transporter.sendMail(mailOptions);
     return true;

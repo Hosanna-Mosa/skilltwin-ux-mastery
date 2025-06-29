@@ -19,6 +19,12 @@ const otpSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  userType: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+    index: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

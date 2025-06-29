@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import AdminLayout from "@/admin/layout/AdminLayout";
 import LoginPage from "@/admin/pages/LoginPage";
+import RegisterPage from "@/admin/pages/RegisterPage";
 import Dashboard from "@/admin/pages/Dashboard";
 import Leads from "@/admin/pages/Leads";
 import Enrollments from "@/admin/pages/Enrollments";
@@ -27,6 +28,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/admin/login" element={<LoginPage />} />
+            <Route path="/admin/register" element={<RegisterPage />} />
             <Route
               path="/admin"
               element={<Navigate to="/admin/dashboard" replace />}
