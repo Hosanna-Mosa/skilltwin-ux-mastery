@@ -1,15 +1,28 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Briefcase, Users, UserCheck, Code, CheckCircle, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { services } from '@/data';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Briefcase,
+  Users,
+  UserCheck,
+  Code,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
+import { Link } from "react-router-dom";
+import { services } from "@/data";
 
 const Services = () => {
   const iconMap = {
     briefcase: Briefcase,
     users: Users,
-    'user-check': UserCheck,
+    "user-check": UserCheck,
     code: Code,
   };
 
@@ -17,23 +30,27 @@ const Services = () => {
     {
       step: "1",
       title: "Initial Consultation",
-      description: "We discuss your goals, challenges, and specific requirements to create a personalized plan."
+      description:
+        "We discuss your goals, challenges, and specific requirements to create a personalized plan.",
     },
     {
       step: "2",
       title: "Expert Matching",
-      description: "We match you with the right expert based on your technology stack and career objectives."
+      description:
+        "We match you with the right expert based on your technology stack and career objectives.",
     },
     {
       step: "3",
       title: "Ongoing Support",
-      description: "Receive continuous guidance and support throughout your journey to success."
+      description:
+        "Receive continuous guidance and support throughout your journey to success.",
     },
     {
       step: "4",
       title: "Success Tracking",
-      description: "We monitor your progress and adjust our approach to ensure you achieve your goals."
-    }
+      description:
+        "We monitor your progress and adjust our approach to ensure you achieve your goals.",
+    },
   ];
 
   return (
@@ -42,9 +59,12 @@ const Services = () => {
       <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">Our Services</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
+              Our Services
+            </h1>
             <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              Explore our range of services designed to help you succeed in your tech career.
+              Explore our range of services designed to help you succeed in your
+              tech career.
             </p>
           </div>
         </div>
@@ -57,23 +77,30 @@ const Services = () => {
             {services.map((service) => {
               const Icon = iconMap[service.icon];
               return (
-                <Card key={service.id} className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer">
-                  <CardHeader>
+                <Card
+                  key={service.id}
+                  className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer flex flex-col"
+                >
+                  <CardHeader className="flex-shrink-0">
                     <div className="flex items-center space-x-3 mb-4">
                       <div className="bg-blue-100 p-3 rounded-lg">
                         <Icon className="h-6 w-6 text-blue-400" />
                       </div>
                       <div>
-                        <CardTitle className="text-xl text-blue-700 font-semibold">{service.title}</CardTitle>
-                        <Badge variant="outline" className="mt-1">{service.pricing}</Badge>
+                        <CardTitle className="text-xl text-blue-700 font-semibold">
+                          {service.title}
+                        </CardTitle>
+                        <Badge variant="outline" className="mt-1">
+                          {service.pricing}
+                        </Badge>
                       </div>
                     </div>
                     <CardDescription className="text-base">
                       {service.description}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3 mb-6">
+                  <CardContent className="flex-1 flex flex-col">
+                    <div className="space-y-3 mb-6 flex-1">
                       {service.features.map((feature, index) => (
                         <div key={index} className="flex items-start space-x-3">
                           <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -81,7 +108,7 @@ const Services = () => {
                         </div>
                       ))}
                     </div>
-                    <Button className="w-full">
+                    <Button className="w-full mt-auto">
                       Get Started <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </CardContent>
@@ -128,9 +155,10 @@ const Services = () => {
               </h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Our job support service provides you with expert assistance for your daily work tasks. 
-                  Whether you're facing complex technical challenges or need guidance on best practices, 
-                  our experienced professionals are here to help.
+                  Our job support service provides you with expert assistance
+                  for your daily work tasks. Whether you're facing complex
+                  technical challenges or need guidance on best practices, our
+                  experienced professionals are here to help.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center">
@@ -153,9 +181,9 @@ const Services = () => {
               </div>
             </div>
             <div className="bg-gray-100 rounded-lg p-8">
-              <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop" 
-                alt="Job Support" 
+              <img
+                src="/mobile-services-imgs/support.jpeg"
+                alt="Job Support"
                 className="w-full h-64 object-cover rounded-lg"
               />
             </div>
@@ -164,9 +192,9 @@ const Services = () => {
           {/* Proxy Interview Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1 bg-gray-100 rounded-lg p-8">
-              <img 
-                src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600&h=400&fit=crop" 
-                alt="Interview Support" 
+              <img
+                src="/mobile-services-imgs/interview.jpeg"
+                alt="Interview Support"
                 className="w-full h-64 object-cover rounded-lg"
               />
             </div>
@@ -176,9 +204,10 @@ const Services = () => {
               </h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Excel in your technical interviews with our comprehensive support program. 
-                  We provide personalized coaching, mock interviews, and strategic guidance 
-                  to help you land your dream job.
+                  Excel in your technical interviews with our comprehensive
+                  support program. We provide personalized coaching, mock
+                  interviews, and strategic guidance to help you land your dream
+                  job.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center">
@@ -210,9 +239,10 @@ const Services = () => {
               </h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Accelerate your career growth with personalized mentorship from industry veterans. 
-                  Our mentors provide strategic guidance, skill development plans, and ongoing support 
-                  to help you reach your professional goals.
+                  Accelerate your career growth with personalized mentorship
+                  from industry veterans. Our mentors provide strategic
+                  guidance, skill development plans, and ongoing support to help
+                  you reach your professional goals.
                 </p>
                 <ul className="space-y-2">
                   <li className="flex items-center">
@@ -235,9 +265,9 @@ const Services = () => {
               </div>
             </div>
             <div className="bg-gray-100 rounded-lg p-8">
-              <img 
-                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop" 
-                alt="Mentorship" 
+              <img
+                src="/mobile-services-imgs/oneOnOne.jpeg"
+                alt="Mentorship"
                 className="w-full h-64 object-cover rounded-lg"
               />
             </div>
@@ -248,15 +278,27 @@ const Services = () => {
       {/* CTA Section */}
       <section className="py-16 bg-white text-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">Ready to Get Started?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
+            Ready to Get Started?
+          </h2>
           <p className="text-xl text-gray-700 mb-8">
-            Contact us today to learn more about how we can help you achieve your career goals.
+            Contact us today to learn more about how we can help you achieve
+            your career goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold" asChild>
+            <Button
+              size="lg"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold"
+              asChild
+            >
               <Link to="/contact">Get Started Now</Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold" asChild>
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold"
+              asChild
+            >
               <Link to="/trainings">View Training Programs</Link>
             </Button>
           </div>

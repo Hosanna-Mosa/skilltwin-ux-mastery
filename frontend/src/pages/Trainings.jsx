@@ -65,6 +65,7 @@ const Trainings = () => {
                     src={program.image} 
                     alt={program.title}
                     className="w-full h-full object-cover"
+                    style={{ objectFit: "inherit" }}
                   />
                 </div>
                 <CardHeader className="flex-1">
