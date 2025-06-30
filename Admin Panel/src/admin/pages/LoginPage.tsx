@@ -30,20 +30,18 @@ const LoginPage = () => {
     setIsLoading(true);
 
     // DUMMY LOGIN FOR TESTING (uncomment to use)
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-      // if (email && password) {
-      //   login("dummy-jwt-token-123", { email: email });
-      //   toast({
-      //     title: "Login Successful!",
-      //     description: "Welcome back to SkillTwin.",
-      //   });
-      //   navigate("/admin/dashboard");
-      //   return;
-      // } else {
-      //   throw new Error("Please fill in all fields");
-      // }
-
-
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    // if (email && password) {
+    //   login("dummy-jwt-token-123", { email: email });
+    //   toast({
+    //     title: "Login Successful!",
+    //     description: "Welcome back to SkillTwin.",
+    //   });
+    //   navigate("/admin/dashboard");
+    //   return;
+    // } else {
+    //   throw new Error("Please fill in all fields");
+    // }
 
     // REAL API LOGIN
 
@@ -79,19 +77,21 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-xl lg:text-2xl font-bold text-center">
             SkillTwin Admin
           </CardTitle>
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-sm">
             Sign in to access the admin panel
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -99,10 +99,13 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="text-sm"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -110,13 +113,14 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="text-sm"
               />
               <div className="flex justify-end">
                 <Button
                   type="button"
                   variant="link"
                   onClick={() => setShowForgotPassword(true)}
-                  className="text-sm text-blue-600 hover:text-blue-800 p-0 h-auto"
+                  className="text-xs lg:text-sm text-blue-600 hover:text-blue-800 p-0 h-auto"
                 >
                   Forgot Password?
                 </Button>
@@ -126,7 +130,7 @@ const LoginPage = () => {
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
             <div className="text-center space-y-2">
-              <p className="text-sm text-gray-600">
+              <p className="text-xs lg:text-sm text-gray-600">
                 Don't have an account?{" "}
                 <Link
                   to="/admin/register"

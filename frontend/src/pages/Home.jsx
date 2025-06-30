@@ -274,7 +274,8 @@ const Home = () => {
                   <img
                     src={program.image}
                     alt={program.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full "
+                    style={{ objectFit: "inherit" }}
                   />
                 </div>
                 <CardHeader>

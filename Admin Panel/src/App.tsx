@@ -11,6 +11,8 @@ import RegisterPage from "@/admin/pages/RegisterPage";
 import Dashboard from "@/admin/pages/Dashboard";
 import Leads from "@/admin/pages/Leads";
 import Enrollments from "@/admin/pages/Enrollments";
+import Services from "@/admin/pages/Services";
+import Training from "@/admin/pages/Training";
 import Experts from "@/admin/pages/Experts";
 import Sessions from "@/admin/pages/Sessions";
 import Index from "./pages/Index";
@@ -44,6 +46,8 @@ const App = () => (
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="leads" element={<Leads />} />
               <Route path="enrollments" element={<Enrollments />} />
+              <Route path="services" element={<Services />} />
+              <Route path="training" element={<Training />} />
               <Route path="experts" element={<Experts />} />
               <Route path="sessions" element={<Sessions />} />
             </Route>
