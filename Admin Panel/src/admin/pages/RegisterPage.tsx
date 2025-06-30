@@ -122,19 +122,21 @@ const RegisterPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md mx-auto">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">
+          <CardTitle className="text-xl lg:text-2xl font-bold text-center">
             Create Admin Account
           </CardTitle>
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-sm">
             Register a new admin account for SkillTwin
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name" className="text-sm">
+                Full Name
+              </Label>
               <Input
                 id="name"
                 name="name"
@@ -143,11 +145,14 @@ const RegisterPage = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
+                className="text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm">
+                Email
+              </Label>
               <Input
                 id="email"
                 name="email"
@@ -156,11 +161,14 @@ const RegisterPage = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
+                className="text-sm"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm">
+                Password
+              </Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -170,6 +178,7 @@ const RegisterPage = () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
+                  className="text-sm pr-10"
                 />
                 <Button
                   type="button"
@@ -188,7 +197,9 @@ const RegisterPage = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="text-sm">
+                Confirm Password
+              </Label>
               <div className="relative">
                 <Input
                   id="confirmPassword"
@@ -198,6 +209,7 @@ const RegisterPage = () => {
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
                   required
+                  className="text-sm pr-10"
                 />
                 <Button
                   type="button"
@@ -220,7 +232,7 @@ const RegisterPage = () => {
             </Button>
 
             <div className="text-center space-y-2">
-              <p className="text-sm text-gray-600">
+              <p className="text-xs lg:text-sm text-gray-600">
                 Already have an account?{" "}
                 <Link
                   to="/admin/login"
