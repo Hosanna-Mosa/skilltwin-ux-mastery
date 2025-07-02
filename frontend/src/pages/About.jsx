@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Target, Heart, Award, Clock, Shield } from 'lucide-react';
+import { Users, Target, Heart, Award, Clock, Shield, Mail, Phone, MapPin } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const About = () => {
   const values = [
@@ -26,20 +27,38 @@ const About = () => {
   ];
 
   const stats = [
-    { number: "500+", label: "Successful Placements" },
-    { number: "1000+", label: "Happy Clients" },
-    { number: "50+", label: "Expert Mentors" },
-    { number: "5+", label: "Years of Experience" }
+    { number: 500, label: "Successful Placements", suffix: "+" },
+    { number: 1000, label: "Happy Clients", suffix: "+" },
+    { number: 50, label: "Expert Mentors", suffix: "+" },
+    { number: 5, label: "Years of Experience", suffix: "+" }
   ];
+
+  // Animated count up for stats
+  const [counts, setCounts] = useState(stats.map(() => 0));
+  useEffect(() => {
+    const intervals = stats.map((stat, i) => {
+      const increment = Math.max(1, Math.floor(stat.number / 60));
+      return setInterval(() => {
+        setCounts(prev => {
+          const next = [...prev];
+          if (next[i] < stat.number) {
+            next[i] = Math.min(stat.number, next[i] + increment);
+          }
+          return next;
+        });
+      }, 16);
+    });
+    return () => intervals.forEach(clearInterval);
+  }, []);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16">
+      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">About SkillTwin</h1>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 dark:text-white">About SkillTwin</h1>
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto dark:text-gray-300">
               Empowering careers through expert job support, training programs, and personalized mentorship.
             </p>
           </div>
@@ -47,13 +66,15 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-4xl font-bold text-blue-700 mb-2">{stat.number}</div>
-                <div className="text-gray-700">{stat.label}</div>
+                <div className="text-4xl font-bold text-blue-700 mb-2 dark:text-blue-300">
+                  {counts[index]}{stat.suffix}
+                </div>
+                <div className="text-gray-700 dark:text-gray-300">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -65,8 +86,8 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-              <div className="space-y-4 text-gray-600">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 dark:text-white">Our Story</h2>
+              <div className="space-y-4 text-gray-600 dark:text-gray-300">
                 <p>
                   SkillTwin was founded with a simple yet powerful vision: to bridge the gap between 
                   talent and opportunity in the tech industry. We recognized that many skilled 
@@ -84,7 +105,7 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="bg-gray-100 rounded-lg p-8">
+            <div className="bg-gray-100 dark:bg-[#23272f] rounded-lg p-8">
               <img 
                 src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop" 
                 alt="Team collaboration" 
@@ -96,18 +117,18 @@ const About = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <Card className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+            <Card className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer bg-white dark:bg-[#23272f]">
               <CardHeader>
-                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold">
+                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold dark:text-blue-300">
                   <Target className="h-6 w-6 mr-3 text-blue-400" />
                   Our Mission
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed dark:text-gray-300">
                   To empower tech professionals with the knowledge, skills, and support they need 
                   to achieve their career goals. We provide personalized guidance, comprehensive 
                   training, and ongoing mentorship to help individuals navigate the competitive 
@@ -116,15 +137,15 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+            <Card className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer bg-white dark:bg-[#23272f]">
               <CardHeader>
-                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold">
+                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold dark:text-blue-300">
                   <Heart className="h-6 w-6 mr-3 text-blue-400" />
                   Our Vision
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-gray-700 leading-relaxed dark:text-gray-300">
                   To be the leading platform that transforms careers and lives in the tech industry. 
                   We envision a world where every talented individual has access to the resources 
                   and support needed to reach their full potential, regardless of their background 
@@ -140,8 +161,8 @@ const About = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
-            <p className="text-xl text-gray-600">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">Our Values</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               The principles that guide everything we do
             </p>
           </div>
@@ -149,15 +170,15 @@ const About = () => {
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
-                <Card key={index} className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <Card key={index} className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer bg-white dark:bg-[#23272f]">
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                       <Icon className="h-8 w-8 text-blue-400" />
                     </div>
-                    <CardTitle className="text-xl text-blue-700 font-semibold">{value.title}</CardTitle>
+                    <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">{value.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700">{value.description}</p>
+                    <p className="text-gray-700 dark:text-gray-300">{value.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -167,16 +188,16 @@ const About = () => {
       </section>
 
       {/* Founder's Note */}
-      <section className="py-16 bg-white text-gray-900">
+      <section className="py-16 bg-white text-gray-900 dark:bg-[#23272f] dark:text-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">Founder's Note</h2>
-            <p className="text-xl text-gray-700 mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white">Founder's Note</h2>
+            <p className="text-xl text-gray-700 mb-8 dark:text-gray-300">
               Our mission is to help you succeed in your tech career journey.
             </p>
           </div>
-          <div className="bg-white/10 rounded-lg p-8">
-            <blockquote className="text-lg leading-relaxed mb-6">
+          <div className="bg-white/10 dark:bg-white/5 rounded-lg p-8">
+            <blockquote className="text-lg leading-relaxed mb-6 dark:text-gray-300">
               "Having worked in the tech industry for over a decade, I've witnessed firsthand 
               the challenges that talented professionals face in advancing their careers. 
               SkillTwin was born from my passion to democratize access to expert guidance 
@@ -188,11 +209,11 @@ const About = () => {
               standards in career development."
             </blockquote>
             <div className="flex items-center justify-center space-x-4">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-white/20 dark:bg-white/10 rounded-full flex items-center justify-center">
                 <Users className="h-8 w-8" />
               </div>
               <div className="text-left">
-                <div className="font-semibold text-lg">John Smith</div>
+                <div className="font-semibold text-lg dark:text-white">John Smith</div>
                 <div className="text-blue-200">Founder & CEO</div>
               </div>
             </div>
@@ -204,31 +225,101 @@ const About = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">
               Why Professionals Choose SkillTwin
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <Clock className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3 text-blue-700">24/7 Support</h3>
-              <p className="text-gray-700">
+              <h3 className="text-xl font-semibold mb-3 text-blue-700 dark:text-blue-300">24/7 Support</h3>
+              <p className="text-gray-700 dark:text-gray-300">
                 Our team is available around the clock to provide assistance when you need it most.
               </p>
             </div>
             <div className="text-center">
               <Shield className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3 text-blue-700">Proven Track Record</h3>
-              <p className="text-gray-700">
+              <h3 className="text-xl font-semibold mb-3 text-blue-700 dark:text-blue-300">Proven Track Record</h3>
+              <p className="text-gray-700 dark:text-gray-300">
                 With hundreds of successful placements, our methods are tested and proven effective.
               </p>
             </div>
             <div className="text-center">
               <Users className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold mb-3 text-blue-700">Expert Team</h3>
-              <p className="text-gray-700">
+              <h3 className="text-xl font-semibold mb-3 text-blue-700 dark:text-blue-300">Expert Team</h3>
+              <p className="text-gray-700 dark:text-gray-300">
                 Our mentors are industry veterans with decades of combined experience.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact & Info Section (Dark Mode Enhanced) */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div>
+              <div className="bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100 rounded-lg shadow-md p-8">
+                <h2 className="text-2xl font-bold mb-6 text-blue-700 dark:text-blue-300">Send Us a Message</h2>
+                <form className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label htmlFor="about-name" className="block text-sm font-medium dark:text-gray-300">Full Name *</label>
+                      <input id="about-name" type="text" className="w-full px-3 py-2 border border-gray-300 dark:border-white rounded-md bg-transparent dark:bg-[#181b20] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Enter your name" />
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="about-email" className="block text-sm font-medium dark:text-gray-300">Email Address *</label>
+                      <input id="about-email" type="email" className="w-full px-3 py-2 border border-gray-300 dark:border-white rounded-md bg-transparent dark:bg-[#181b20] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Enter your email" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="about-subject" className="block text-sm font-medium dark:text-gray-300">Subject *</label>
+                    <input id="about-subject" type="text" className="w-full px-3 py-2 border border-gray-300 dark:border-white rounded-md bg-transparent dark:bg-[#181b20] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Subject" />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="about-message" className="block text-sm font-medium dark:text-gray-300">Message *</label>
+                    <textarea id="about-message" rows="4" className="w-full px-3 py-2 border border-gray-300 dark:border-white rounded-md bg-transparent dark:bg-[#181b20] text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Type your message here..."></textarea>
+                  </div>
+                  <button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-bold rounded-md py-2 dark:bg-green-700 dark:hover:bg-green-800">Send Message</button>
+                </form>
+              </div>
+            </div>
+            {/* Info & FAQ */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold mb-6 text-black dark:text-white">Get in Touch</h2>
+                <p className="text-gray-700 text-lg leading-relaxed dark:text-gray-300">
+                  We're here to help you succeed in your tech career. Whether you need job support, training, or guidance, our expert team is ready to assist you every step of the way.
+                </p>
+                <ul className="mt-6 space-y-4">
+                  <li className="flex items-center space-x-3">
+                    <span className="bg-blue-100 dark:bg-[#23272f] p-2 rounded-full"><Mail className="h-5 w-5 text-blue-600" /></span>
+                    <span className="dark:text-gray-300">contact@skilltwin.com</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="bg-blue-100 dark:bg-[#23272f] p-2 rounded-full"><Phone className="h-5 w-5 text-blue-600" /></span>
+                    <span className="dark:text-gray-300">+1 (555) 123-4567</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="bg-blue-100 dark:bg-[#23272f] p-2 rounded-full"><Clock className="h-5 w-5 text-blue-600" /></span>
+                    <span className="dark:text-gray-300">Mon-Fri: 9 AM - 6 PM EST</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="bg-blue-100 dark:bg-[#23272f] p-2 rounded-full"><MapPin className="h-5 w-5 text-blue-600" /></span>
+                    <span className="dark:text-gray-300">Remote Support Available Worldwide</span>
+                  </li>
+                </ul>
+              </div>
+              {/* FAQ Link */}
+              <div className="bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-white rounded-lg p-6">
+                <h3 className="font-semibold text-lg mb-3 dark:text-white">Have Questions?</h3>
+                <p className="text-gray-600 mb-4 dark:text-gray-300">
+                  Check out our frequently asked questions for quick answers to common inquiries.
+                </p>
+                <a href="/?scroll=faq" className="block w-full text-center bg-white dark:bg-[#23272f] text-blue-700 border border-blue-700 hover:bg-blue-50 font-bold rounded-md py-2 dark:text-blue-300 dark:border-blue-300 dark:hover:bg-[#23272f]">View FAQ</a>
+              </div>
             </div>
           </div>
         </div>

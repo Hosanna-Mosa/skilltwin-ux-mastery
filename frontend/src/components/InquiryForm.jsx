@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from '@/hooks/useForm';
 import { apiService } from '@/services/api';
+import { Textarea } from '@/components/ui/textarea';
 
 const InquiryForm = () => {
   const { toast } = useToast();
@@ -57,7 +58,7 @@ const InquiryForm = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto dark:border-white bg-white dark:bg-[#23272f]">
       <CardHeader>
         <CardTitle className="text-2xl text-center">Get Expert Help Today</CardTitle>
       </CardHeader>
@@ -74,11 +75,14 @@ const InquiryForm = () => {
                 type="text"
                 value={values.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                className={errors.name ? 'border-red-500' : ''}
+                className={
+                  (errors.name
+                    ? 'border-red-500'
+                    : 'placeholder-gray-400 dark:placeholder-white border border-gray-300 dark:border-white')
+                }
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="email">Email Address *</Label>
               <Input
@@ -86,7 +90,11 @@ const InquiryForm = () => {
                 type="email"
                 value={values.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className={errors.email ? 'border-red-500' : ''}
+                className={
+                  (errors.email
+                    ? 'border-red-500'
+                    : 'placeholder-gray-400 dark:placeholder-white border border-gray-300 dark:border-white')
+                }
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
             </div>
@@ -99,7 +107,11 @@ const InquiryForm = () => {
               type="tel"
               value={values.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              className={errors.phone ? 'border-red-500' : ''}
+              className={
+                (errors.phone
+                  ? 'border-red-500'
+                  : 'placeholder-gray-400 dark:placeholder-white border border-gray-300 dark:border-white')
+              }
             />
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
           </div>
@@ -108,7 +120,7 @@ const InquiryForm = () => {
             <div className="space-y-2">
               <Label>Technology *</Label>
               <Select value={values.technology} onValueChange={(value) => handleChange('technology', value)}>
-                <SelectTrigger className={errors.technology ? 'border-red-500' : ''}>
+                <SelectTrigger className={errors.technology ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white border border-gray-300 dark:border-white'}>
                   <SelectValue placeholder="Select technology" />
                 </SelectTrigger>
                 <SelectContent>
@@ -123,7 +135,7 @@ const InquiryForm = () => {
             <div className="space-y-2">
               <Label>Help Type *</Label>
               <Select value={values.helpType} onValueChange={(value) => handleChange('helpType', value)}>
-                <SelectTrigger className={errors.helpType ? 'border-red-500' : ''}>
+                <SelectTrigger className={errors.helpType ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white border border-gray-300 dark:border-white'}>
                   <SelectValue placeholder="Select help type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -138,12 +150,12 @@ const InquiryForm = () => {
 
           <div className="space-y-2">
             <Label htmlFor="message">Additional Message (Optional)</Label>
-            <textarea
+            <Textarea
               id="message"
               rows={4}
               value={values.message}
               onChange={(e) => handleChange('message', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 dark:placeholder-white border-gray-300 dark:border-white"
               placeholder="Tell us more about your requirements..."
             />
           </div>

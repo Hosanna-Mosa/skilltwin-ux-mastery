@@ -162,7 +162,7 @@ const Register = () => {
         description: "Welcome to SkillTwin! Your account has been created.",
       });
 
-      navigate("/");
+      navigate("/trainings");
     } catch (err: any) {
       const errorMessage =
         err.message || "Registration failed. Please try again.";
@@ -197,14 +197,14 @@ const Register = () => {
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <Card className="w-full max-w-md shadow-xl border-0">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+      <Card className="w-full max-w-md shadow-xl border-0 bg-white dark:bg-white">
         <CardHeader className="space-y-1 text-center">
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-300 rounded-full flex items-center justify-center mb-4">
             <User className="w-6 h-6 text-blue-700" />
           </div>
-          <CardTitle className="text-2xl font-bold text-black">Create Account</CardTitle>
-          <CardDescription className="text-gray-700">
+          <CardTitle className="text-2xl font-bold text-black dark:text-gray-900">Create Account</CardTitle>
+          <CardDescription className="text-gray-700 dark:text-gray-700">
             Register for a SkillTwin account
           </CardDescription>
         </CardHeader>
@@ -218,7 +218,7 @@ const Register = () => {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm font-medium">
+              <Label htmlFor="name" className="text-sm font-medium dark:text-gray-900">
                 Full Name
               </Label>
               <div className="relative">
@@ -237,7 +237,7 @@ const Register = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">
+              <Label htmlFor="email" className="text-sm font-medium dark:text-gray-900">
                 Email Address
               </Label>
               <div className="relative">
@@ -256,7 +256,7 @@ const Register = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">
+              <Label htmlFor="password" className="text-sm font-medium dark:text-gray-900">
                 Password
               </Label>
               <div className="relative">
@@ -309,7 +309,7 @@ const Register = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="text-sm font-medium">
+              <Label htmlFor="confirmPassword" className="text-sm font-medium dark:text-gray-900">
                 Confirm Password
               </Label>
               <div className="relative">
@@ -370,18 +370,18 @@ const Register = () => {
                   setAcceptTerms(checked as boolean)
                 }
               />
-              <Label htmlFor="terms" className="text-sm text-gray-600">
+              <Label htmlFor="terms" className="text-sm text-gray-600 dark:text-gray-700">
                 I agree to the{" "}
                 <Link
                   to="/terms"
-                  className="text-blue-300 hover:text-blue-500 underline"
+                  className="text-blue-600 hover:text-blue-800 underline dark:text-blue-600 dark:hover:text-blue-700"
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
                   to="/privacy"
-                  className="text-blue-300 hover:text-blue-500 underline"
+                  className="text-blue-600 hover:text-blue-800 underline dark:text-blue-600 dark:hover:text-blue-700"
                 >
                   Privacy Policy
                 </Link>
@@ -390,7 +390,7 @@ const Register = () => {
 
             <Button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800"
               disabled={loading}
             >
               {loading ? 'Creating account...' : 'Sign Up'}
@@ -398,11 +398,11 @@ const Register = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-700">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="text-blue-700 hover:text-blue-900 font-bold underline"
+                className="text-blue-600 hover:text-blue-800 font-medium underline dark:text-blue-600 dark:hover:text-blue-700"
               >
                 Sign in here
               </Link>

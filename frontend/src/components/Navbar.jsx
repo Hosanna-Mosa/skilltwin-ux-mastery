@@ -2,14 +2,16 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -57,19 +59,26 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                onClick={toggleTheme}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-300 hover:bg-gray-50 flex items-center justify-center group`}
+              >
+                {theme === "dark" ? <Sun className="h-5 w-5 text-gray-700 group-hover:text-blue-300 transition-colors" /> : <Moon className="h-5 w-5 text-gray-700 group-hover:text-blue-300 transition-colors" />}
+              </Button>
               {isAuthenticated ? (
                 <Button
                   variant="ghost"
                   onClick={handleLogout}
-                  className="flex items-center space-x-2"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-300 hover:bg-gray-50 flex items-center space-x-2 group`}
                 >
-                  <LogOut className="h-4 w-4" />
-                  <span>Logout</span>
+                  <LogOut className="h-4 w-4 text-gray-700 group-hover:text-blue-300 transition-colors" />
+                  <span className="text-gray-700 group-hover:text-blue-300 transition-colors">Logout</span>
                 </Button>
               ) : (
                 <>
                   <Link to="/login">
-                    <Button variant="ghost">Login</Button>
+                    <Button  className="hover">Login</Button>
                   </Link>
                   <Link to="/register">
                     <Button>Register</Button>
@@ -80,7 +89,14 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Navigation */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              onClick={toggleTheme}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-300 hover:bg-gray-50 flex items-center justify-center group`}
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5 text-gray-700 group-hover:text-blue-300 transition-colors" /> : <Moon className="h-5 w-5 text-gray-700 group-hover:text-blue-300 transition-colors" />}
+            </Button>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon">
@@ -103,22 +119,22 @@ const Navbar = () => {
                       {item.name}
                     </Link>
                   ))}
-                  <div className="flex flex-col space-y-2 pt-4 border-t">
+                  <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
                     {isAuthenticated ? (
                       <Button
                         variant="ghost"
                         onClick={handleLogout}
-                        className="w-full justify-start flex items-center space-x-2"
+                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-300 hover:bg-gray-50 w-full justify-start flex items-center space-x-2 group`}
                       >
-                        <LogOut className="h-4 w-4" />
-                        <span>Logout</span>
+                        <LogOut className="h-4 w-4 text-gray-700 group-hover:text-blue-300 transition-colors" />
+                        <span className="text-gray-700 group-hover:text-blue-300 transition-colors">Logout</span>
                       </Button>
                     ) : (
                       <>
                         <Link to="/login" onClick={() => setIsOpen(false)}>
                           <Button
                             variant="ghost"
-                            className="w-full justify-start"
+                            className="w-full justify-start no-hover"
                           >
                             Login
                           </Button>

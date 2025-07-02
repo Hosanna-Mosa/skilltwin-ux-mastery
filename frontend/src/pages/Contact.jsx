@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, MessageCircle, Send, Clock } from 'lucide-react';
 import { useForm } from '@/hooks/useForm';
 import { useToast } from '@/hooks/use-toast';
 import { apiService } from '@/services/api';
+import { Link } from "react-router-dom";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -58,11 +59,11 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16">
+      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">Contact Us</h1>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 dark:text-white">Contact Us</h1>
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto dark:text-gray-300">
               We're here to help you succeed in your tech career. Reach out to us for support, training, or guidance.
             </p>
           </div>
@@ -70,28 +71,28 @@ const Contact = () => {
       </section>
 
       {/* Quick Contact Options */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-black mb-4">Get Instant Support</h2>
-            <p className="text-xl text-gray-700">
+            <h2 className="text-3xl font-bold text-black mb-4 dark:text-white">Get Instant Support</h2>
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Choose your preferred way to reach us
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
+            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black dark:border-white bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
               <CardHeader>
                 <div className="mx-auto bg-green-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                   <MessageCircle className="h-8 w-8 text-green-600" />
                 </div>
-                <CardTitle className="text-xl">WhatsApp Support</CardTitle>
+                <CardTitle className="text-xl dark:text-white">WhatsApp Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-6 dark:text-gray-300">
                   Get instant responses to your queries. Available 24/7 for urgent support.
                 </p>
                 <Button 
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800"
                   asChild
                 >
                   <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
@@ -102,19 +103,19 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
+            <Card className="text-center hover:shadow-lg transition-shadow hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer border-black dark:border-white bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
               <CardHeader>
                 <div className="mx-auto bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                   <Send className="h-8 w-8 text-blue-300" />
                 </div>
-                <CardTitle className="text-xl">Telegram Support</CardTitle>
+                <CardTitle className="text-xl dark:text-white">Telegram Support</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-6 dark:text-gray-300">
                   Join our Telegram channel for updates and quick support from our team.
                 </p>
                 <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold dark:bg-blue-700 dark:hover:bg-blue-800"
                   asChild
                 >
                   <a href="https://t.me/skilltwin" target="_blank" rel="noopener noreferrer">
@@ -134,9 +135,9 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div>
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-blue-700 font-semibold">Send Us a Message</CardTitle>
+                  <CardTitle className="text-2xl text-blue-700 font-semibold dark:text-blue-300">Send Us a Message</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={(e) => {
@@ -145,46 +146,46 @@ const Contact = () => {
                   }} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
+                        <Label htmlFor="name" className="dark:text-gray-300">Full Name *</Label>
                         <Input
                           id="name"
                           type="text"
                           value={values.name}
                           onChange={(e) => handleChange('name', e.target.value)}
-                          className={errors.name ? 'border-red-500' : ''}
+                          className={errors.name ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                         />
                         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email Address *</Label>
+                        <Label htmlFor="email" className="dark:text-gray-300">Email Address *</Label>
                         <Input
                           id="email"
                           type="email"
                           value={values.email}
                           onChange={(e) => handleChange('email', e.target.value)}
-                          className={errors.email ? 'border-red-500' : ''}
+                          className={errors.email ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                         />
                         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
+                      <Label htmlFor="phone" className="dark:text-gray-300">Phone Number *</Label>
                       <Input
                         id="phone"
                         type="tel"
                         value={values.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
-                        className={errors.phone ? 'border-red-500' : ''}
+                        className={errors.phone ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                       />
                       {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Subject *</Label>
+                      <Label className="dark:text-gray-300">Subject *</Label>
                       <Select value={values.subject} onValueChange={(value) => handleChange('subject', value)}>
-                        <SelectTrigger className={errors.subject ? 'border-red-500' : ''}>
+                        <SelectTrigger className={errors.subject ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}>
                           <SelectValue placeholder="Select a subject" />
                         </SelectTrigger>
                         <SelectContent>
@@ -197,13 +198,13 @@ const Contact = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message *</Label>
+                      <Label htmlFor="message" className="dark:text-gray-300">Message *</Label>
                       <textarea
                         id="message"
                         rows={6}
                         value={values.message}
                         onChange={(e) => handleChange('message', e.target.value)}
-                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${errors.message ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white border-gray-300 dark:border-white'} bg-white dark:bg-[#181b20] text-gray-900 dark:text-white`}
                         placeholder="Tell us how we can help you..."
                       />
                       {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
@@ -211,7 +212,7 @@ const Contact = () => {
 
                     <Button 
                       type="submit" 
-                      className="w-full bg-green-600 hover:bg-green-700 text-white font-bold" 
+                      className="w-full bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800" 
                       disabled={isSubmitting}
                       size="lg"
                     >
@@ -225,8 +226,8 @@ const Contact = () => {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-black mb-6">Get in Touch</h2>
-                <p className="text-gray-700 text-lg leading-relaxed">
+                <h2 className="text-3xl font-bold text-black mb-6 dark:text-white">Get in Touch</h2>
+                <p className="text-gray-700 text-lg leading-relaxed dark:text-gray-300">
                   We're here to help you succeed in your tech career. Whether you need job support, 
                   training, or guidance, our expert team is ready to assist you every step of the way.
                 </p>
@@ -238,9 +239,9 @@ const Contact = () => {
                     <Mail className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1 text-blue-700">Email Support</h3>
-                    <p className="text-gray-700">contact@skilltwin.com</p>
-                    <p className="text-sm text-gray-500">We respond within 24 hours</p>
+                    <h3 className="font-semibold text-lg mb-1 text-blue-700 dark:text-blue-300">Email Support</h3>
+                    <p className="text-gray-700 dark:text-gray-300">contact@skilltwin.com</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">We respond within 24 hours</p>
                   </div>
                 </div>
 
@@ -249,9 +250,9 @@ const Contact = () => {
                     <Phone className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1 text-blue-700">Phone Support</h3>
-                    <p className="text-gray-700">+1 (555) 123-4567</p>
-                    <p className="text-sm text-gray-500">Mon-Fri: 9 AM - 6 PM EST</p>
+                    <h3 className="font-semibold text-lg mb-1 text-blue-700 dark:text-blue-300">Phone Support</h3>
+                    <p className="text-gray-700 dark:text-gray-300">+1 (555) 123-4567</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Mon-Fri: 9 AM - 6 PM EST</p>
                   </div>
                 </div>
 
@@ -260,10 +261,10 @@ const Contact = () => {
                     <Clock className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1 text-blue-700">Business Hours</h3>
-                    <p className="text-gray-700">Monday - Friday: 9:00 AM - 6:00 PM</p>
-                    <p className="text-gray-700">Saturday: 10:00 AM - 4:00 PM</p>
-                    <p className="text-gray-700">Sunday: Closed</p>
+                    <h3 className="font-semibold text-lg mb-1 text-blue-700 dark:text-blue-300">Business Hours</h3>
+                    <p className="text-gray-700 dark:text-gray-300">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p className="text-gray-700 dark:text-gray-300">Saturday: 10:00 AM - 4:00 PM</p>
+                    <p className="text-gray-700 dark:text-gray-300">Sunday: Closed</p>
                   </div>
                 </div>
 
@@ -272,22 +273,22 @@ const Contact = () => {
                     <MapPin className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg mb-1 text-blue-700">Service Area</h3>
-                    <p className="text-gray-700">Remote Support Available Worldwide</p>
-                    <p className="text-sm text-gray-500">Supporting professionals globally</p>
+                    <h3 className="font-semibold text-lg mb-1 text-blue-700 dark:text-blue-300">Service Area</h3>
+                    <p className="text-gray-700 dark:text-gray-300">Remote Support Available Worldwide</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Supporting professionals globally</p>
                   </div>
                 </div>
               </div>
 
               {/* FAQ Link */}
-              <Card className="hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
+              <Card className="hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black dark:border-white bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
                 <CardContent className="pt-6">
-                  <h3 className="font-semibold text-lg mb-3">Have Questions?</h3>
-                  <p className="text-gray-600 mb-4">
+                  <h3 className="font-semibold text-lg mb-3 dark:text-white">Have Questions?</h3>
+                  <p className="text-gray-600 mb-4 dark:text-gray-300">
                     Check out our frequently asked questions for quick answers to common inquiries.
                   </p>
-                  <Button variant="outline" className="w-full bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold">
-                    View FAQ
+                  <Button variant="outline" className="w-full bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold dark:bg-[#23272f] dark:text-blue-300 dark:border-blue-300 dark:hover:bg-[#23272f]" asChild>
+                    <Link to="/?scroll=faq">View FAQ</Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -297,11 +298,13 @@ const Contact = () => {
       </section>
 
       {/* Info Banner */}
-      <section className="py-12 bg-blue-100 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-blue-700 mb-2">We're Here to Help!</h2>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-          Our average response time is under 2 hours during business hours. For urgent matters, reach out via WhatsApp for immediate assistance.
-        </p>
+      <section className="py-12 bg-blue-100 dark:bg-[#23272f]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-blue-700 dark:text-blue-300">We're Here to Help!</h2>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            Our average response time is under 2 hours during business hours. For urgent matters, reach out via WhatsApp for immediate assistance.
+          </p>
+        </div>
       </section>
     </div>
   );

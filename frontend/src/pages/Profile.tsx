@@ -204,7 +204,7 @@ const Profile = () => {
 
             <TabsContent value="overview" className="space-y-6">
               {/* Profile Header */}
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                     <div className="relative">
@@ -258,7 +258,7 @@ const Profile = () => {
               {/* Stats Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {stats.map((stat, index) => (
-                  <Card key={index}>
+                  <Card key={index} className="bg-white dark:bg-[#23272f]">
                     <CardContent className="p-4">
                       <div className="flex items-center gap-3">
                         <div className={`p-2 rounded-lg bg-gray-100`}>
@@ -276,7 +276,7 @@ const Profile = () => {
 
               {/* Skills and Certifications */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card>
+                <Card className="bg-white dark:bg-[#23272f]">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Star className="w-5 h-5" />
@@ -294,7 +294,7 @@ const Profile = () => {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-white dark:bg-[#23272f]">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Award className="w-5 h-5" />
@@ -318,7 +318,7 @@ const Profile = () => {
               </div>
 
               {/* Contact Information */}
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardHeader>
                   <CardTitle>Contact Information</CardTitle>
                   <CardDescription>Your personal contact details</CardDescription>
@@ -362,7 +362,7 @@ const Profile = () => {
             </TabsContent>
 
             <TabsContent value="activity" className="space-y-6">
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Activity className="w-5 h-5" />
@@ -401,7 +401,7 @@ const Profile = () => {
             </TabsContent>
 
             <TabsContent value="settings" className="space-y-6">
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Settings className="w-5 h-5" />
@@ -476,7 +476,7 @@ const Profile = () => {
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Globe className="w-5 h-5" />
@@ -510,7 +510,7 @@ const Profile = () => {
             </TabsContent>
 
             <TabsContent value="security" className="space-y-6">
-              <Card>
+              <Card className="bg-white dark:bg-[#23272f]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Shield className="w-5 h-5" />
