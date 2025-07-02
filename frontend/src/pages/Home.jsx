@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -38,6 +38,42 @@ import {
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Animated count up for stats
+  const [placements, setPlacements] = useState(0);
+  const [successRate, setSuccessRate] = useState(0);
+  useEffect(() => {
+    let placementsInterval = setInterval(() => {
+      setPlacements((prev) => {
+        if (prev < 500) return prev + 5;
+        clearInterval(placementsInterval);
+        return 500;
+      });
+    }, 10);
+    let successInterval = setInterval(() => {
+      setSuccessRate((prev) => {
+        if (prev < 95) return prev + 1;
+        clearInterval(successInterval);
+        return 95;
+      });
+    }, 20);
+    return () => {
+      clearInterval(placementsInterval);
+      clearInterval(successInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("scroll") === "faq") {
+      const faqSection = document.getElementById("faq");
+      if (faqSection) {
+        faqSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -55,14 +91,14 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-20">
+      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black dark:text-white">
               Accelerate Your {" "}
-              <span className="text-blue-700">Tech Career</span>
+              <span className="text-blue-700 dark:text-blue-300">Tech Career</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               Expert job support, training programs, and mentorship to help you
               succeed in the competitive tech industry.
             </p>
@@ -70,13 +106,15 @@ const Home = () => {
               <Button
                 size="lg"
                 className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3"
+                onClick={() => navigate("/register")}
               >
                 Get Started Today
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold"
+                className="bg-white dark:bg-[#23272f] text-blue-700 border-blue-700 hover:bg-blue-50 dark:hover:bg-[#23272f] font-bold"
+                onClick={() => navigate("/services")}
               >
                 View Services
               </Button>
@@ -85,16 +123,16 @@ const Home = () => {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700">500+</div>
-                <div className="text-gray-700">Successful Placements</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">{placements}+</div>
+                <div className="text-gray-700 dark:text-gray-300">Successful Placements</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700">24/7</div>
-                <div className="text-gray-700">Expert Support</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">24/7</div>
+                <div className="text-gray-700 dark:text-gray-300">Expert Support</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700">95%</div>
-                <div className="text-gray-700">Success Rate</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">{successRate}%</div>
+                <div className="text-gray-700 dark:text-gray-300">Success Rate</div>
               </div>
             </div>
           </div>
@@ -102,7 +140,7 @@ const Home = () => {
       </section>
 
       {/* Inquiry Form Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <InquiryForm />
         </div>
@@ -112,10 +150,10 @@ const Home = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               Why Choose SkillTwin?
             </h2>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
               We provide comprehensive support to help you achieve your career
               goals with confidence.
             </p>
@@ -124,15 +162,15 @@ const Home = () => {
             {benefits.map((benefit, index) => {
               const Icon = iconMap[benefit.icon];
               return (
-                <Card key={index} className="border-black text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <Card key={index} className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
-                      <Icon className="h-8 w-8 text-blue-400" />
+                      <Icon className="h-8 w-8 text-blue-400 dark:text-blue-300" />
                     </div>
-                    <CardTitle className="text-xl text-blue-700 font-semibold">{benefit.title}</CardTitle>
+                    <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">{benefit.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700">{benefit.description}</p>
+                    <p className="text-gray-700 dark:text-gray-300">{benefit.description}</p>
                   </CardContent>
                 </Card>
               );
@@ -142,13 +180,13 @@ const Home = () => {
       </section>
 
       {/* Tech Stack Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               Technologies We Support
             </h2>
-            <p className="text-xl text-gray-700">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Expert guidance across all major technologies and frameworks
             </p>
           </div>
@@ -157,7 +195,7 @@ const Home = () => {
               <Badge
                 key={index}
                 variant="secondary"
-                className="px-4 py-2 text-sm text-blue-700 bg-blue-100 border border-blue-200"
+                className="px-4 py-2 text-sm text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-[#23272f] border border-blue-200 dark:border-gray-700"
               >
                 {tech}
               </Badge>
@@ -170,31 +208,31 @@ const Home = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               What Our Clients Say
             </h2>
           </div>
           <div className="max-w-4xl mx-auto">
-            <Card className="text-center">
+            <Card className="text-center dark:border-white">
               <CardContent className="pt-8">
                 <div className="flex justify-center mb-4">
                   {[...Array(testimonials[currentTestimonial].rating)].map(
                     (_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-green-600 fill-current"
+                        className="h-5 w-5 text-green-600 dark:text-green-400 fill-current"
                       />
                     )
                   )}
                 </div>
-                <blockquote className="text-xl text-gray-700 mb-6">
+                <blockquote className="text-xl text-gray-700 dark:text-gray-300 mb-6">
                   "{testimonials[currentTestimonial].content}"
                 </blockquote>
                 <div>
-                  <div className="font-semibold text-blue-700">
+                  <div className="font-semibold text-blue-700 dark:text-blue-300">
                     {testimonials[currentTestimonial].name}
                   </div>
-                  <div className="text-gray-700">
+                  <div className="text-gray-700 dark:text-gray-300">
                     {testimonials[currentTestimonial].role}
                   </div>
                 </div>
@@ -217,31 +255,31 @@ const Home = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               Flexible Pricing Plans
             </h2>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
               Choose a plan that fits your needs and budget.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {pricingPlans.map((plan, idx) => (
-              <Card key={plan.name} className="hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+              <Card key={plan.name} className="hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white">
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl text-blue-700 font-semibold">{plan.name}</CardTitle>
-                  <div className="text-4xl font-bold text-blue-700">
+                  <CardTitle className="text-2xl text-blue-700 dark:text-blue-300 font-semibold">{plan.name}</CardTitle>
+                  <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
                     {plan.price}
-                    <span className="text-lg text-gray-700">/{plan.period}</span>
+                    <span className="text-lg text-gray-700 dark:text-gray-300">/{plan.period}</span>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 mb-12">
                     {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-700">
-                        <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                      <li key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-300">
+                        <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mr-3" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -260,16 +298,16 @@ const Home = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               Featured Training Programs
             </h2>
-            <p className="text-xl text-gray-700">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Comprehensive training programs designed by industry experts
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {trainingPrograms.map((program) => (
-              <Card key={program.id} className=" text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+              <Card key={program.id} className=" text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white">
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={program.image}
@@ -279,29 +317,29 @@ const Home = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl text-blue-700 font-semibold">{program.title}</CardTitle>
-                  <CardDescription className="text-gray-700">{program.description}</CardDescription>
+                  <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">{program.title}</CardTitle>
+                  <CardDescription className="text-gray-700 dark:text-gray-300">{program.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 mb-4">
-                    <div className="flex justify-between text-sm text-gray-700">
+                    <div className="flex justify-between text-sm text-gray-700 dark:text-gray-300">
                       <span>Duration:</span>
                       <span className="font-semibold">{program.duration}</span>
                     </div>
-                    <div className="flex justify-between text-sm text-gray-700">
+                    <div className="flex justify-between text-sm text-gray-700 dark:text-gray-300">
                       <span>Level:</span>
                       <span className="font-semibold">{program.level}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-700">Price:</span>
-                      <span className="font-bold text-blue-700 text-lg">
+                      <span className="text-gray-700 dark:text-gray-300">Price:</span>
+                      <span className="font-bold text-blue-700 dark:text-blue-300 text-lg">
                         {program.price}
                       </span>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.technologies.slice(0, 3).map((tech, index) => (
-                      <Badge key={index} variant="outline" className="text-xs text-blue-700 border-blue-200 bg-blue-50">
+                      <Badge key={index} variant="outline" className="text-xs text-blue-700 dark:text-blue-300 border-blue-200 dark:border-gray-700 bg-blue-50 dark:bg-gray-800">
                         {tech}
                       </Badge>
                     ))}
@@ -316,7 +354,7 @@ const Home = () => {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Button asChild size="lg" variant="outline" className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold">
+            <Button asChild size="lg" variant="outline" className="bg-white dark:bg-[#23272f] text-blue-700 border-blue-700 hover:bg-blue-50 dark:hover:bg-[#23272f] font-bold">
               <Link to="/trainings">View All Programs</Link>
             </Button>
           </div>
@@ -324,13 +362,13 @@ const Home = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
+      <section id="faq" className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-700">
+            <p className="text-xl text-gray-700 dark:text-gray-300">
               Get answers to common questions about our services
             </p>
           </div>
@@ -339,12 +377,12 @@ const Home = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-white rounded-lg px-6"
+                className="bg-white dark:bg-[#23272f] rounded-lg px-6"
               >
-                <AccordionTrigger className="text-left font-semibold text-blue-700">
+                <AccordionTrigger className="text-left font-semibold text-blue-700 dark:text-blue-300">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-700">
+                <AccordionContent className="text-gray-700 dark:text-gray-300">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -354,12 +392,12 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900">
+      <section className="py-16 bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white">
             Ready to Accelerate Your Career?
           </h2>
-          <p className="text-xl text-gray-700 mb-8">
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">
             Join thousands of successful professionals who have transformed
             their careers with SkillTwin.
           </p>
@@ -367,13 +405,14 @@ const Home = () => {
             <Button
               size="lg"
               className="bg-green-600 hover:bg-green-700 text-white font-bold"
+              onClick={() => navigate("/services")}
             >
               Start Your Journey
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold"
+              className="bg-white dark:bg-[#23272f] text-blue-700 border-blue-700 hover:bg-blue-50 dark:hover:bg-[#23272f] font-bold"
             >
               Schedule a Call
             </Button>

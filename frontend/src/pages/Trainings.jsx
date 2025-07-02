@@ -19,11 +19,11 @@ const Trainings = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16">
+      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">Our Training Programs</h1>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 dark:text-white">Our Training Programs</h1>
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto dark:text-gray-300">
               Explore our comprehensive training programs designed by industry experts.
             </p>
           </div>
@@ -31,12 +31,12 @@ const Trainings = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-8 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center space-x-2">
               <Filter className="h-5 w-5 text-gray-600" />
-              <span className="text-gray-700 font-medium">Filter by level:</span>
+              <span className="text-gray-700 font-medium dark:text-gray-300">Filter by level:</span>
             </div>
             <div className="flex space-x-2">
               {levels.map((level) => (
@@ -59,7 +59,7 @@ const Trainings = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPrograms.map((program) => (
-              <Card key={program.id} className="hover:shadow-lg transition-shadow flex flex-col h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer">
+              <Card key={program.id} className="hover:shadow-lg transition-shadow flex flex-col h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer dark:border-white bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img 
                     src={program.image} 
@@ -79,16 +79,16 @@ const Trainings = () => {
                       </span>
                     </div>
                   </div>
-                  <CardTitle className="text-xl text-blue-700 font-semibold">{program.title}</CardTitle>
-                  <CardDescription className="text-gray-700">{program.description}</CardDescription>
+                  <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">{program.title}</CardTitle>
+                  <CardDescription className="text-gray-700 dark:text-gray-300">{program.description}</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="space-y-3 mb-4">
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                       <Clock className="h-4 w-4 mr-2" />
                       <span>Duration: {program.duration}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
+                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
                       <Star className="h-4 w-4 mr-2 text-yellow-500" />
                       <span>4.8/5 (120+ reviews)</span>
                     </div>
@@ -98,14 +98,14 @@ const Trainings = () => {
                     <h4 className="font-semibold text-sm mb-2">Technologies:</h4>
                     <div className="flex flex-wrap gap-1">
                       {program.technologies.map((tech, index) => (
-                        <Badge key={index} variant="outline" className="text-xs text-blue-700 border-blue-200 bg-blue-50">
+                        <Badge key={index} variant="outline" className="text-xs text-blue-700 border-blue-200 bg-blue-50 dark:text-blue-300 dark:border-blue-300 dark:bg-[#23272f]">
                           {tech}
                         </Badge>
                       ))}
                     </div>
                   </div>
 
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white font-bold">
+                  <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800">
                     <Link to={`/trainings/${program.id}`}>
                       View Details <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -118,10 +118,10 @@ const Trainings = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">
               What Makes Our Training Special?
             </h2>
           </div>
@@ -130,8 +130,8 @@ const Trainings = () => {
               <div className="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <Users className="h-8 w-8 text-blue-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Expert Instructors</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">Expert Instructors</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 Learn from industry veterans with years of hands-on experience in leading tech companies.
               </p>
             </div>
@@ -139,8 +139,8 @@ const Trainings = () => {
               <div className="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <Star className="h-8 w-8 text-blue-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Hands-on Projects</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">Hands-on Projects</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 Build real-world projects that you can showcase in your portfolio and during interviews.
               </p>
             </div>
@@ -148,8 +148,8 @@ const Trainings = () => {
               <div className="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <Clock className="h-8 w-8 text-blue-300" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Flexible Schedule</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold mb-3 dark:text-white">Flexible Schedule</h3>
+              <p className="text-gray-600 dark:text-gray-300">
                 Live sessions, recorded content, and flexible timing to fit your busy schedule.
               </p>
             </div>
@@ -161,10 +161,10 @@ const Trainings = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">
               Success Stories
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Hear from our graduates who transformed their careers
             </p>
           </div>
@@ -189,18 +189,18 @@ const Trainings = () => {
                 story: "The cloud-focused training gave me the skills I needed to transition from development to DevOps leadership. Couldn't be happier with the results."
               }
             ].map((story, index) => (
-              <Card key={index} className="h-full hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black">
+              <Card key={index} className="h-full hover:shadow-2xl transition-shadow hover:scale-90 transition-transform durtion-300 ease-in-out cursor-pointer border-black dark:border-white bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
                 <CardContent className="pt-6">
                   <div className="flex items-center mb-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                       <Users className="h-6 w-6 text-blue-300" />
                     </div>
                     <div>
-                      <div className="font-semibold">{story.name}</div>
-                      <div className="text-sm text-gray-600">{story.role}</div>
+                      <div className="font-semibold dark:text-white">{story.name}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">{story.role}</div>
                     </div>
                   </div>
-                  <p className="text-gray-700 mb-4">"{story.story}"</p>
+                  <p className="text-gray-700 mb-4 dark:text-gray-300">"{story.story}"</p>
                   <Badge variant="outline">{story.program}</Badge>
                 </CardContent>
               </Card>
@@ -210,17 +210,17 @@ const Trainings = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-white text-gray-900">
+      <section className="py-16 bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">Ready to Start Your Learning Journey?</h2>
-          <p className="text-xl text-gray-700 mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white">Ready to Start Your Learning Journey?</h2>
+          <p className="text-xl text-gray-700 mb-8 dark:text-gray-300">
             Join thousands of professionals who have transformed their careers with our training programs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold">
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800">
               Enroll Now
             </Button>
-            <Button size="lg" variant="outline" className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold">
+            <Button size="lg" variant="outline" className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold dark:bg-[#23272f] dark:text-blue-300 dark:border-blue-300 dark:hover:bg-[#23272f]">
               Schedule a Call
             </Button>
           </div>

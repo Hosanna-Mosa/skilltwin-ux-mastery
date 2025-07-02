@@ -24,11 +24,11 @@ const Footer = () => {
               <Button 
                 variant="solid" 
                 size="sm" 
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                className="bg-[#25D366] hover:bg-[#1DA851] text-black font-bold"
                 asChild
               >
                 <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
-                  <MessageCircle className="h-4 w-4 mr-2" />
+                  <MessageCircle className="h-4 w-4 mr-2 text-black" />
                   WhatsApp
                 </a>
               </Button>

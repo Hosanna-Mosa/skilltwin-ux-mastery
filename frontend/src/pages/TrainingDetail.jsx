@@ -186,7 +186,7 @@ const TrainingDetail = () => {
                         type="text"
                         value={values.name}
                         onChange={(e) => handleChange('name', e.target.value)}
-                        className={errors.name ? 'border-red-500' : ''}
+                        className={errors.name ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                       />
                       {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                     </div>
@@ -198,7 +198,7 @@ const TrainingDetail = () => {
                         type="email"
                         value={values.email}
                         onChange={(e) => handleChange('email', e.target.value)}
-                        className={errors.email ? 'border-red-500' : ''}
+                        className={errors.email ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                       />
                       {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                     </div>
@@ -210,7 +210,7 @@ const TrainingDetail = () => {
                         type="tel"
                         value={values.phone}
                         onChange={(e) => handleChange('phone', e.target.value)}
-                        className={errors.phone ? 'border-red-500' : ''}
+                        className={errors.phone ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}
                       />
                       {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                     </div>
@@ -218,7 +218,7 @@ const TrainingDetail = () => {
                     <div className="space-y-2">
                       <Label>Experience Level *</Label>
                       <Select value={values.experience} onValueChange={(value) => handleChange('experience', value)}>
-                        <SelectTrigger className={errors.experience ? 'border-red-500' : ''}>
+                        <SelectTrigger className={errors.experience ? 'border-red-500' : 'placeholder-gray-400 dark:placeholder-white'}>
                           <SelectValue placeholder="Select your experience level" />
                         </SelectTrigger>
                         <SelectContent>
@@ -251,7 +251,7 @@ const TrainingDetail = () => {
                         rows={3}
                         value={values.message}
                         onChange={(e) => handleChange('message', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 dark:placeholder-white border-gray-300 dark:border-white"
                         placeholder="Any specific goals or questions?"
                       />
                     </div>

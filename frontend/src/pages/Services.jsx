@@ -56,13 +56,13 @@ const Services = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16">
+      <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-16 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-black mb-4 dark:text-white">
               Our Services
             </h1>
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto dark:text-gray-300">
               Explore our range of services designed to help you succeed in your
               tech career.
             </p>
@@ -79,7 +79,7 @@ const Services = () => {
               return (
                 <Card
                   key={service.id}
-                  className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer flex flex-col"
+                  className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer flex flex-col bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100"
                 >
                   <CardHeader className="flex-shrink-0">
                     <div className="flex items-center space-x-3 mb-4">
@@ -87,7 +87,7 @@ const Services = () => {
                         <Icon className="h-6 w-6 text-blue-400" />
                       </div>
                       <div>
-                        <CardTitle className="text-xl text-blue-700 font-semibold">
+                        <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">
                           {service.title}
                         </CardTitle>
                         <Badge variant="outline" className="mt-1">
@@ -95,7 +95,7 @@ const Services = () => {
                         </Badge>
                       </div>
                     </div>
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-base dark:text-gray-300">
                       {service.description}
                     </CardDescription>
                   </CardHeader>
@@ -104,7 +104,7 @@ const Services = () => {
                       {service.features.map((feature, index) => (
                         <div key={index} className="flex items-start space-x-3">
                           <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{feature}</span>
+                          <span className="text-gray-700 dark:text-gray-300">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -120,13 +120,13 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 dark:text-white">
               Our Process
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               A systematic approach to ensure your success
             </p>
           </div>
@@ -136,8 +136,12 @@ const Services = () => {
                 <div className="bg-blue-300 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
                   {step.step}
                 </div>
-                <h3 className="text-lg font-semibold mb-3">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.description}</p>
+                <h3 className="text-lg font-semibold mb-3 dark:text-white">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 text-sm dark:text-gray-300">
+                  {step.description}
+                </p>
               </div>
             ))}
           </div>
@@ -150,10 +154,10 @@ const Services = () => {
           {/* Job Support Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 dark:text-white">
                 Professional Job Support
               </h2>
-              <div className="space-y-4 text-gray-600">
+              <div className="space-y-4 text-gray-600 dark:text-gray-300">
                 <p>
                   Our job support service provides you with expert assistance
                   for your daily work tasks. Whether you're facing complex
@@ -180,7 +184,7 @@ const Services = () => {
                 </ul>
               </div>
             </div>
-            <div className="bg-gray-100 rounded-lg p-8">
+            <div className="bg-gray-100 dark:bg-[#23272f] rounded-lg p-8">
               <img
                 src="/mobile-services-imgs/support.jpeg"
                 alt="Job Support"
@@ -191,7 +195,7 @@ const Services = () => {
 
           {/* Proxy Interview Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 bg-gray-100 rounded-lg p-8">
+            <div className="order-2 lg:order-1 bg-gray-100 dark:bg-[#23272f] rounded-lg p-8">
               <img
                 src="/mobile-services-imgs/interview.jpeg"
                 alt="Interview Support"
@@ -199,10 +203,10 @@ const Services = () => {
               />
             </div>
             <div className="order-1 lg:order-2">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 dark:text-white">
                 Interview Support & Preparation
               </h2>
-              <div className="space-y-4 text-gray-600">
+              <div className="space-y-4 text-gray-600 dark:text-gray-300">
                 <p>
                   Excel in your technical interviews with our comprehensive
                   support program. We provide personalized coaching, mock
@@ -234,10 +238,10 @@ const Services = () => {
           {/* Mentorship Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6 dark:text-white">
                 Personalized 1:1 Mentorship
               </h2>
-              <div className="space-y-4 text-gray-600">
+              <div className="space-y-4 text-gray-600 dark:text-gray-300">
                 <p>
                   Accelerate your career growth with personalized mentorship
                   from industry veterans. Our mentors provide strategic
@@ -264,7 +268,7 @@ const Services = () => {
                 </ul>
               </div>
             </div>
-            <div className="bg-gray-100 rounded-lg p-8">
+            <div className="bg-gray-100 dark:bg-[#23272f] rounded-lg p-8">
               <img
                 src="/mobile-services-imgs/oneOnOne.jpeg"
                 alt="Mentorship"
@@ -276,19 +280,19 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-white text-gray-900">
+      <section className="py-16 bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black dark:text-white">
             Ready to Get Started?
           </h2>
-          <p className="text-xl text-gray-700 mb-8">
+          <p className="text-xl text-gray-700 mb-8 dark:text-gray-300">
             Contact us today to learn more about how we can help you achieve
             your career goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-green-600 hover:bg-green-700 text-white font-bold"
+              className="bg-green-600 hover:bg-green-700 text-white font-bold dark:bg-green-700 dark:hover:bg-green-800"
               asChild
             >
               <Link to="/contact">Get Started Now</Link>
@@ -296,7 +300,7 @@ const Services = () => {
             <Button
               size="lg"
               variant="outline"
-              className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold"
+              className="bg-white text-blue-700 border-blue-700 hover:bg-blue-50 font-bold dark:bg-[#23272f] dark:text-blue-300 dark:border-blue-300 dark:hover:bg-[#23272f]"
               asChild
             >
               <Link to="/trainings">View Training Programs</Link>

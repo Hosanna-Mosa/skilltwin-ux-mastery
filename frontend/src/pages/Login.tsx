@@ -99,16 +99,16 @@ const Login = () => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4">
-        <Card className="w-full max-w-md shadow-xl border-0">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-[#23272f] dark:to-gray-800 p-4">
+        <Card className="w-full max-w-md shadow-xl border-0 bg-white dark:bg-white">
           <CardHeader className="space-y-1 text-center">
             <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-4">
               <Mail className="w-6 h-6 text-white" />
             </div>
-            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent dark:text-gray-900">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-gray-600">
+            <CardDescription className="text-gray-600 dark:text-gray-700">
               Sign in to your SkillTwin account
             </CardDescription>
           </CardHeader>
@@ -122,7 +122,7 @@ const Login = () => {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
+                <Label htmlFor="email" className="text-sm font-medium dark:text-gray-900">
                   Email Address
                 </Label>
                 <div className="relative">
@@ -141,7 +141,7 @@ const Login = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium">
+                <Label htmlFor="password" className="text-sm font-medium dark:text-gray-900">
                   Password
                 </Label>
                 <div className="relative">
@@ -179,14 +179,14 @@ const Login = () => {
                     id="remember"
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <Label htmlFor="remember" className="text-sm text-gray-600">
+                  <Label htmlFor="remember" className="text-sm text-gray-600 dark:text-gray-700">
                     Remember me
                   </Label>
                 </div>
                 <button
                   type="button"
                   onClick={() => setForgotPasswordOpen(true)}
-                  className="text-sm text-blue-600 hover:text-blue-800 underline"
+                  className="text-sm text-blue-600 hover:text-blue-800 underline dark:text-blue-600 dark:hover:text-blue-700"
                 >
                   Forgot password?
                 </button>
@@ -194,7 +194,7 @@ const Login = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105 dark:from-blue-700 dark:to-purple-700 dark:hover:from-blue-800 dark:hover:to-purple-800"
                 disabled={loading}
               >
                 {loading ? (
@@ -212,11 +212,11 @@ const Login = () => {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-700">
                 Don't have an account?{" "}
                 <Link
                   to="/register"
-                  className="text-blue-600 hover:text-blue-800 font-medium underline"
+                  className="text-blue-600 hover:text-blue-800 font-medium underline dark:text-blue-600 dark:hover:text-blue-700"
                 >
                   Sign up here
                 </Link>
