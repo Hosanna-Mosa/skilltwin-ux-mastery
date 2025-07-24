@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -11,10 +11,13 @@ import { trainingPrograms } from '@/data';
 import { useForm } from '@/hooks/useForm';
 import { useToast } from '@/hooks/use-toast';
 import { apiService } from '@/services/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const TrainingDetail = () => {
   const { id } = useParams();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const program = trainingPrograms.find(p => p.id === id);
 
   const { values, errors, isSubmitting, handleChange, handleSubmit, reset } = useForm(
@@ -48,6 +51,10 @@ const TrainingDetail = () => {
   }
 
   const onEnroll = async (formData) => {
+    if (!isAuthenticated) {
+      navigate('/register');
+      return;
+    }
     try {
       await apiService.submitEnrollment({
         ...formData,

@@ -7,13 +7,27 @@ exports.enroll = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const { name, email, training, schedule, message } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      experience,
+      schedule,
+      message,
+      programId,
+      programTitle,
+      programPrice
+    } = req.body;
     const enrollment = new Enrollment({
       name,
       email,
-      training,
+      phone,
+      experience,
       schedule,
       message,
+      programId,
+      programTitle,
+      programPrice
     });
     await enrollment.save();
     res.status(201).json({ message: "Enrollment successful" });

@@ -8,6 +8,8 @@ const inquiryRoutes = require("./routes/inquiry");
 const enrollRoutes = require("./routes/enroll");
 const adminRoutes = require("./routes/admin");
 const adminAuthRoutes = require("./routes/adminAuth");
+const contactRoutes = require("./routes/contact");
+const serviceInquiryRoutes = require("./routes/serviceInquiry");
 const { errorHandler } = require("./middleware/errorHandler");
 const configDB = require("./config/db");
 require("dotenv").config();
@@ -27,6 +29,8 @@ app.use("/api/inquiry", inquiryRoutes);
 app.use("/api/enroll", enrollRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin", adminAuthRoutes);
+app.use("/api/contact", contactRoutes);
+app.use("/api/service-inquiry", serviceInquiryRoutes);
 
 // Error Handler
 app.use(errorHandler);

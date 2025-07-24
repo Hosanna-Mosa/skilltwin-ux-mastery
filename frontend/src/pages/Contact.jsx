@@ -7,10 +7,13 @@ import { Mail, Phone, MapPin, MessageCircle, Send, Clock } from 'lucide-react';
 import { useForm } from '@/hooks/useForm';
 import { useToast } from '@/hooks/use-toast';
 import { apiService } from '@/services/api';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Contact = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   
   const { values, errors, isSubmitting, handleChange, handleSubmit, reset } = useForm(
     {
@@ -40,6 +43,10 @@ const Contact = () => {
   ];
 
   const onSubmit = async (formData) => {
+    if (!isAuthenticated) {
+      navigate('/register', { state: { fromContact: true } });
+      return;
+    }
     try {
       await apiService.submitContact(formData);
       toast({

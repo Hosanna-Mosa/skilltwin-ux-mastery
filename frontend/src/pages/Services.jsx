@@ -17,6 +17,12 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { services } from "@/data";
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { apiService } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
   const iconMap = {
@@ -53,6 +59,48 @@ const Services = () => {
     },
   ];
 
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
+  const [formStates, setFormStates] = useState({});
+  const [submittingId, setSubmittingId] = useState(null);
+
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChange = (serviceId, e) => {
+    setFormStates((prev) => ({
+      ...prev,
+      [serviceId]: {
+        ...prev[serviceId],
+        [e.target.name]: e.target.value,
+      },
+    }));
+  };
+
+  const handleSubmit = async (service, e) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      setSelectedServiceId(null);
+      navigate('/register', { state: { fromServiceInquiry: true } });
+      return;
+    }
+    setSubmittingId(service.id);
+    try {
+      await apiService.submitServiceInquiry({
+        ...formStates[service.id],
+        serviceId: service.id,
+        serviceTitle: service.title,
+        servicePricing: service.pricing,
+      });
+      setSubmittingId(null);
+      setSelectedServiceId(null);
+      setFormStates((prev) => ({ ...prev, [service.id]: { name: '', email: '', phone: '' } }));
+      alert('Inquiry submitted!');
+    } catch (error) {
+      setSubmittingId(null);
+      alert('Failed to submit inquiry. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -76,43 +124,69 @@ const Services = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {services.map((service) => {
               const Icon = iconMap[service.icon];
+              const form = formStates[service.id] || { name: '', email: '', phone: '' };
               return (
-                <Card
-                  key={service.id}
-                  className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer flex flex-col bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100"
-                >
-                  <CardHeader className="flex-shrink-0">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="bg-blue-100 p-3 rounded-lg">
-                        <Icon className="h-6 w-6 text-blue-400" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">
-                          {service.title}
-                        </CardTitle>
-                        <Badge variant="outline" className="mt-1">
-                          {service.pricing}
-                        </Badge>
-                      </div>
-                    </div>
-                    <CardDescription className="text-base dark:text-gray-300">
-                      {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 flex flex-col">
-                    <div className="space-y-3 mb-6 flex-1">
-                      {service.features.map((feature, index) => (
-                        <div key={index} className="flex items-start space-x-3">
-                          <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                <Dialog key={service.id} open={selectedServiceId === service.id} onOpenChange={(open) => setSelectedServiceId(open ? service.id : null)}>
+                  <Card
+                    className="hover:shadow-lg transition-shadow h-full hover:shadow-2xl transition-shadow hover:scale-105 transition-transform durtion-300 ease-in-out cursor-pointer flex flex-col bg-white dark:bg-[#23272f] text-gray-900 dark:text-gray-100"
+                  >
+                    <CardHeader className="flex-shrink-0">
+                      <div className="flex items-center space-x-3 mb-4">
+                        <div className="bg-blue-100 p-3 rounded-lg">
+                          <Icon className="h-6 w-6 text-blue-400" />
                         </div>
-                      ))}
-                    </div>
-                    <Button className="w-full mt-auto">
-                      Get Started <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                        <div>
+                          <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">
+                            {service.title}
+                          </CardTitle>
+                          <Badge variant="outline" className="mt-1">
+                            {service.pricing}
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardDescription className="text-base dark:text-gray-300">
+                        {service.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex-1 flex flex-col">
+                      <div className="space-y-3 mb-6 flex-1">
+                        {service.features.map((feature, index) => (
+                          <div key={index} className="flex items-start space-x-3">
+                            <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <DialogTrigger asChild>
+                        <Button className="w-full mt-auto">
+                          Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </DialogTrigger>
+                    </CardContent>
+                  </Card>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Service Inquiry</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={(e) => handleSubmit(service, e)} className="space-y-4">
+                      <div>
+                        <div className="font-semibold text-blue-700 dark:text-blue-300">{service.title}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">{service.pricing}</div>
+                      </div>
+                      <Input name="name" placeholder="Your Name" value={form.name} onChange={(e) => handleChange(service.id, e)} required />
+                      <Input name="email" type="email" placeholder="Your Email" value={form.email} onChange={(e) => handleChange(service.id, e)} required />
+                      <Input name="phone" placeholder="Your Phone" value={form.phone} onChange={(e) => handleChange(service.id, e)} required />
+                      <DialogFooter>
+                        <Button type="submit" disabled={submittingId === service.id} className="w-full">
+                          {submittingId === service.id ? 'Submitting...' : 'Submit Inquiry'}
+                        </Button>
+                        <DialogClose asChild>
+                          <Button type="button" variant="outline" className="w-full">Cancel</Button>
+                        </DialogClose>
+                      </DialogFooter>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               );
             })}
           </div>
