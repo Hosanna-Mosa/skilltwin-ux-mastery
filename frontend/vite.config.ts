@@ -4,8 +4,11 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig({
-  build: {
-    outDir: 'dist',
+  plugins: [react()],
+  resolve: {
+    alias: {
+      a: path.resolve(__dirname, 'src'), // or wherever 'a' points
+    },
   },
 });
 
