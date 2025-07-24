@@ -173,59 +173,6 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Connection Status Banner */}
-      {isCheckingConnection && !hasCheckedOnce && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border-b border-blue-200 dark:border-blue-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-center space-x-2 text-blue-700 dark:text-blue-300">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-700 dark:border-blue-300"></div>
-              <span className="text-sm font-medium">
-                Checking internet connection...
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Show green banner only once after first successful connection */}
-      {!isCheckingConnection && (
-        <div className="bg-green-50 dark:bg-green-900/20 border-b border-green-200 dark:border-green-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-center space-x-2 text-green-700 dark:text-green-300">
-              <Wifi className="h-4 w-4" />
-              <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                You're connected to the internet!
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {!isCheckingConnection && (
-        <div className="bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-center space-x-2 text-red-700 dark:text-red-300">
-              <WifiOff className="h-4 w-4" />
-              <span className="text-sm font-medium">
-                {connectionMessage} - Some features may be limited
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                className="ml-4 h-6 px-2 text-xs border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/30"
-                onClick={async () => {
-                  setIsCheckingConnection(true);
-                  // await checkConnectivity(); // This line is removed as per the edit hint
-                  setIsCheckingConnection(false);
-                }}
-              >
-                Retry
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 py-20 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
