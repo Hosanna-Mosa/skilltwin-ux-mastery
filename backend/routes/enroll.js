@@ -9,7 +9,8 @@ router.post(
   [
     body("name").notEmpty(),
     body("email").isEmail(),
-    body("training").notEmpty(),
+    body("phone").notEmpty(),
+    body("experience").notEmpty(),
   ],
   enroll
 );

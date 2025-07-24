@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -39,8 +39,11 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuth();
   const { toast } = useToast();
+  const fromContact = location.state && location.state.fromContact;
+  const fromServiceInquiry = location.state && location.state.fromServiceInquiry;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const hadError = !!error;
@@ -198,6 +201,24 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+      {fromContact && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+          <Alert>
+            <AlertDescription>
+              Please register or log in to send us a message.
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+      {fromServiceInquiry && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+          <Alert>
+            <AlertDescription>
+              Please register or log in to submit a service inquiry.
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
       <Card className="w-full max-w-md shadow-xl border-0 bg-white dark:bg-white">
         <CardHeader className="space-y-1 text-center">
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-300 rounded-full flex items-center justify-center mb-4">

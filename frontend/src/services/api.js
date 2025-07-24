@@ -1,61 +1,67 @@
 // API service for handling form submissions and data fetching
+import networkMiddleware from '../utils/networkMiddleware.js';
+
 const API_BASE_URL = "http://localhost:8000/api";
 
 class ApiService {
   async post(endpoint, data) {
-    try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    return networkMiddleware.withConnectionCheck(async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      const responseData = await response.json();
+        const responseData = await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          responseData.message || `HTTP error! status: ${response.status}`
-        );
+        if (!response.ok) {
+          throw new Error(
+            responseData.message || `HTTP error! status: ${response.status}`
+          );
+        }
+
+        return responseData;
+      } catch (error) {
+        console.error("API request failed:", error);
+        throw error;
       }
-
-      return responseData;
-    } catch (error) {
-      console.error("API request failed:", error);
-      throw error;
-    }
+    }, { requireConnectivityTest: false }); // Don't require connectivity test for API calls
   }
 
   async get(endpoint) {
-    try {
-      const token = localStorage.getItem("token");
-      const headers = {
-        "Content-Type": "application/json",
-      };
+    return networkMiddleware.withConnectionCheck(async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const headers = {
+          "Content-Type": "application/json",
+        };
 
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+          method: "GET",
+          headers,
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            responseData.message || `HTTP error! status: ${response.status}`
+          );
+        }
+
+        return responseData;
+      } catch (error) {
+        console.error("API request failed:", error);
+        throw error;
       }
-
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "GET",
-        headers,
-      });
-
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          responseData.message || `HTTP error! status: ${response.status}`
-        );
-      }
-
-      return responseData;
-    } catch (error) {
-      console.error("API request failed:", error);
-      throw error;
-    }
+    }, { requireConnectivityTest: false }); // Don't require connectivity test for API calls
   }
 
   // Check if user is authenticated
@@ -103,6 +109,10 @@ class ApiService {
 
   async submitContact(contactData) {
     return this.post("/contact", contactData);
+  }
+
+  async submitServiceInquiry(inquiryData) {
+    return this.post("/service-inquiry", inquiryData);
   }
 }
 

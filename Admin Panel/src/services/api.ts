@@ -1,5 +1,7 @@
+import networkMiddleware from '../utils/networkMiddleware';
+
 const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+  (import.meta as any).env?.VITE_API_URL || "http://localhost:8000/api";
 
 interface ApiResponse<T> {
   success: boolean;
@@ -45,38 +47,40 @@ class ApiService {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
-    try {
-      const url = `${this.baseURL}${endpoint}`;
-      const config: RequestInit = {
-        headers: {
-          "Content-Type": "application/json",
-          ...options.headers,
-        },
-        ...options,
-      };
+    return networkMiddleware.withConnectionCheck(async () => {
+      try {
+        const url = `${this.baseURL}${endpoint}`;
+        const config: RequestInit = {
+          headers: {
+            "Content-Type": "application/json",
+            ...options.headers,
+          },
+          ...options,
+        };
 
-      const response = await fetch(url, config);
-      const data = await response.json();
+        const response = await fetch(url, config);
+        const data = await response.json();
 
-      if (!response.ok) {
+        if (!response.ok) {
+          return {
+            success: false,
+            error: data.message || `HTTP error! status: ${response.status}`,
+            errorType: data.errorType,
+          };
+        }
+
+        return {
+          success: true,
+          data,
+        };
+      } catch (error) {
+        console.error("API request failed:", error);
         return {
           success: false,
-          error: data.message || `HTTP error! status: ${response.status}`,
-          errorType: data.errorType,
+          error: error instanceof Error ? error.message : "Network error",
         };
       }
-
-      return {
-        success: true,
-        data,
-      };
-    } catch (error) {
-      console.error("API request failed:", error);
-      return {
-        success: false,
-        error: error instanceof Error ? error.message : "Network error",
-      };
-    }
+    }, { requireConnectivityTest: false }); // Don't require connectivity test for API calls
   }
 
   // Admin Authentication

@@ -218,7 +218,7 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
   const renderOTPStep = () => (
     <form onSubmit={handleOTPSubmit} className="space-y-4">
       <div className="space-y-2">
-        <Label htmlFor="otp">Enter OTP</Label>
+        <Label htmlFor="otp" className="text-gray-800 dark:text-gray-200">Enter OTP</Label>
         <Input
           id="otp"
           type="text"
@@ -228,11 +228,11 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
             setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
           }
           maxLength={6}
-          className="text-center text-lg font-mono tracking-widest"
+          className="text-center text-lg font-mono tracking-widest text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-900 border-gray-300 dark:border-gray-700"
           required
         />
-        <p className="text-sm text-gray-500 text-center">
-          We've sent a 6-digit code to {email}
+        <p className="text-sm text-gray-700 dark:text-gray-300 text-center">
+          We've sent a 6-digit code to <span className="font-semibold text-gray-900 dark:text-gray-100">{email}</span>
         </p>
       </div>
 
@@ -244,10 +244,10 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
           className="flex-1"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Back
+          <span className="text-gray-800 dark:text-gray-200">Back</span>
         </Button>
         <Button type="submit" className="flex-1" disabled={loading}>
-          {loading ? "Verifying..." : "Verify OTP"}
+          <span className="text-gray-100 dark:text-gray-900">{loading ? "Verifying..." : "Verify OTP"}</span>
         </Button>
       </div>
 
@@ -257,7 +257,7 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
           variant="link"
           onClick={resendOTP}
           disabled={countdown > 0 || loading}
-          className="text-sm"
+          className="text-sm text-blue-600 dark:text-blue-400"
         >
           {countdown > 0 ? `Resend in ${countdown}s` : "Resend OTP"}
         </Button>
@@ -372,13 +372,13 @@ const ForgotPasswordDialog: React.FC<ForgotPasswordDialogProps> = ({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
             {step === "password" && (
               <CheckCircle className="h-5 w-5 text-green-500" />
             )}
             {getStepTitle()}
           </DialogTitle>
-          <DialogDescription>{getStepDescription()}</DialogDescription>
+          <DialogDescription className="text-gray-700 dark:text-gray-300">{getStepDescription()}</DialogDescription>
         </DialogHeader>
 
         {error && (
