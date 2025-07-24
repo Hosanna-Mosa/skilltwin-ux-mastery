@@ -141,23 +141,23 @@ const Register = () => {
 
     try {
       // DUMMY REGISTRATION FOR TESTING (uncomment to use)
-      // await new Promise((resolve) => setTimeout(resolve, 1500));
-      // if (formData.name && formData.email && formData.password) {
-      //   login("dummy-jwt-token-456", { name: formData.name, email: formData.email });
-      //   toast({
-      //     title: "Registration Successful!",
-      //     description: "Welcome to SkillTwin! Your account has been created.",
-      //   });
-      //   navigate("/");
-      //   return;
-      // } else {
-      //   throw new Error("Please fill in all required fields");
-      // }
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (formData.name && formData.email && formData.password) {
+        login("dummy-jwt-token-456", { name: formData.name, email: formData.email });
+        toast({
+          title: "Registration Successful!",
+          description: "Welcome to SkillTwin! Your account has been created.",
+        });
+        navigate("/");
+        return;
+      } else {
+        throw new Error("Please fill in all required fields");
+      }
 
       // REAL API CALL
-      const { confirmPassword, ...registerData } = formData;
-      const response = await apiService.register(registerData);
-      login(response.token, { name: formData.name, email: formData.email });
+      // const { confirmPassword, ...registerData } = formData;
+      // const response = await apiService.register(registerData);
+      // login(response.token, { name: formData.name, email: formData.email });
 
       // Show success toast
       toast({

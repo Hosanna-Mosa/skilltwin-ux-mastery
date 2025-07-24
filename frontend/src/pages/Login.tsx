@@ -58,28 +58,28 @@ const Login = () => {
 
     try {
       // DUMMY LOGIN FOR TESTING (uncomment to use)
-      // await new Promise((resolve) => setTimeout(resolve, 1000));
-      // if (formData.email && formData.password) {
-      //   login("dummy-jwt-token-123", { email: formData.email });
-      //   toast({
-      //     title: "Login Successful!",
-      //     description: "Welcome back to SkillTwin.",
-      //   });
-      //   navigate("/");
-      //   return;
-      // } else {
-      //   throw new Error("Please fill in all fields");
-      // }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (formData.email && formData.password) {
+        login("dummy-jwt-token-123", { email: formData.email });
+        toast({
+          title: "Login Successful!",
+          description: "Welcome back to SkillTwin.",
+        });
+        navigate("/");
+        return;
+      } else {
+        throw new Error("Please fill in all fields");
+      }
 
       // REAL API CALL
-      const response = await apiService.login(formData);
-      login(response.token, { email: formData.email });
+      // const response = await apiService.login(formData);
+      // login(response.token, { email: formData.email });
 
-      // Show success toast
-      toast({
-        title: "Login Successful!",
-        description: "Welcome back to SkillTwin.",
-      });
+      // // Show success toast
+      // toast({
+      //   title: "Login Successful!",
+      //   description: "Welcome back to SkillTwin.",
+      // });
 
       navigate("/");
     } catch (err: any) {

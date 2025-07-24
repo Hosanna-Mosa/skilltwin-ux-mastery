@@ -30,7 +30,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import InquiryForm from "@/components/InquiryForm";
-import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 import { useToast } from "@/hooks/use-toast";
 import {
   benefits,
@@ -49,44 +48,59 @@ const Home = () => {
   const [hasCheckedOnce, setHasCheckedOnce] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { isOnline, checkConnectivity, resetConnectionMessage } = useNetworkStatus();
   const { toast } = useToast();
 
   // Reset connection message flag on component mount
   useEffect(() => {
-    resetConnectionMessage();
-  }, [resetConnectionMessage]);
+    // resetConnectionMessage(); // This line is removed as per the edit hint
+  }, []);
 
   // Check internet connection on page load - only once
   useEffect(() => {
     const checkInitialConnection = async () => {
       setIsCheckingConnection(true);
       try {
-        const isConnected = await checkConnectivity();
-        if (isConnected) {
-          setConnectionMessage("Connected to the internet");
-          // Show success message only once
-          if (!hasShownInitialMessage) {
-            toast({
-              title: "Connection Status",
-              description: "You're connected to the internet!",
-              duration: 3000,
-            });
-            setHasShownInitialMessage(true);
-          }
-        } else {
-          setConnectionMessage("No internet connection detected");
-          // Show error message only once
-          if (!hasShownInitialMessage) {
-            toast({
-              title: "Connection Error",
-              description: "Please check your internet connection to access all features.",
-              variant: "destructive",
-              duration: 5000,
-            });
-            setHasShownInitialMessage(true);
-          }
-        }
+        // const isConnected = await checkConnectivity(); // This line is removed as per the edit hint
+        // if (isConnected) { // This line is removed as per the edit hint
+        //   setConnectionMessage("Connected to the internet"); // This line is removed as per the edit hint
+        //   // Show success message only once // This line is removed as per the edit hint
+        //   if (!hasShownInitialMessage) { // This line is removed as per the edit hint
+        //     toast({ // This line is removed as per the edit hint
+        //       title: "Connection Status", // This line is removed as per the edit hint
+        //       description: "You're connected to the internet!", // This line is removed as per the edit hint
+        //       duration: 3000, // This line is removed as per the edit hint
+        //     }); // This line is removed as per the edit hint
+        //     setHasShownInitialMessage(true); // This line is removed as per the edit hint
+        //   } // This line is removed as per the edit hint
+        // } else { // This line is removed as per the edit hint
+        //   setConnectionMessage("No internet connection detected"); // This line is removed as per the edit hint
+        //   // Show error message only once // This line is removed as per the edit hint
+        //   if (!hasShownInitialMessage) { // This line is removed as per the edit hint
+        //     toast({ // This line is removed as per the edit hint
+        //       title: "Connection Error", // This line is removed as per the edit hint
+        //       description: "Please check your internet connection to access all features.", // This line is removed as per the edit hint
+        //       variant: "destructive", // This line is removed as per the edit hint
+        //       duration: 5000, // This line is removed as per the edit hint
+        //     }); // This line is removed as per the edit hint
+        //     setHasShownInitialMessage(true); // This line is removed as per the edit hint
+        //   } // This line is removed as per the edit hint
+        // } // This line is removed as per the edit hint
+        // } catch (error) { // This line is removed as per the edit hint
+        //   setConnectionMessage("Unable to verify connection"); // This line is removed as per the edit hint
+        //   // Show error message only once // This line is removed as per the edit hint
+        //   if (!hasShownInitialMessage) { // This line is removed as per the edit hint
+        //     toast({ // This line is removed as per the edit hint
+        //       title: "Connection Error", // This line is removed as per the edit hint
+        //       description: "Unable to verify your internet connection.", // This line is removed as per the edit hint
+        //       variant: "destructive", // This line is removed as per the edit hint
+        //       duration: 5000, // This line is removed as per the edit hint
+        //     }); // This line is removed as per the edit hint
+        //     setHasShownInitialMessage(true); // This line is removed as per the edit hint
+        //   } // This line is removed as per the edit hint
+        // } finally { // This line is removed as per the edit hint
+        //   setIsCheckingConnection(false); // This line is removed as per the edit hint
+        //   setHasCheckedOnce(true); // This line is removed as per the edit hint
+        // } // This line is removed as per the edit hint
       } catch (error) {
         setConnectionMessage("Unable to verify connection");
         // Show error message only once
@@ -108,7 +122,7 @@ const Home = () => {
     // Check connection after a short delay to allow page to load
     const timer = setTimeout(checkInitialConnection, 1000);
     return () => clearTimeout(timer);
-  }, [checkConnectivity, toast, hasShownInitialMessage]);
+  }, []);
 
   // Animated count up for stats
   const [placements, setPlacements] = useState(0);
@@ -165,25 +179,29 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-center space-x-2 text-blue-700 dark:text-blue-300">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-700 dark:border-blue-300"></div>
-              <span className="text-sm font-medium">Checking internet connection...</span>
+              <span className="text-sm font-medium">
+                Checking internet connection...
+              </span>
             </div>
           </div>
         </div>
       )}
 
       {/* Show green banner only once after first successful connection */}
-      {!isCheckingConnection && isOnline && !hasShownInitialMessage && (
+      {!isCheckingConnection && (
         <div className="bg-green-50 dark:bg-green-900/20 border-b border-green-200 dark:border-green-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-center space-x-2 text-green-700 dark:text-green-300">
               <Wifi className="h-4 w-4" />
-              <span className="text-sm font-medium text-green-600 dark:text-green-400">{connectionMessage}</span>
+              <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                You're connected to the internet!
+              </span>
             </div>
           </div>
         </div>
       )}
 
-      {!isCheckingConnection && !isOnline && (
+      {!isCheckingConnection && (
         <div className="bg-red-50 dark:bg-red-900/20 border-b border-red-200 dark:border-red-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div className="flex items-center justify-center space-x-2 text-red-700 dark:text-red-300">
@@ -197,7 +215,7 @@ const Home = () => {
                 className="ml-4 h-6 px-2 text-xs border-red-300 dark:border-red-700 text-red-700 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-900/30"
                 onClick={async () => {
                   setIsCheckingConnection(true);
-                  await checkConnectivity();
+                  // await checkConnectivity(); // This line is removed as per the edit hint
                   setIsCheckingConnection(false);
                 }}
               >
@@ -213,8 +231,10 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black dark:text-white">
-              Accelerate Your {" "}
-              <span className="text-blue-700 dark:text-blue-300">Tech Career</span>
+              Accelerate Your{" "}
+              <span className="text-blue-700 dark:text-blue-300">
+                Tech Career
+              </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
               Expert job support, training programs, and mentorship to help you
@@ -241,16 +261,28 @@ const Home = () => {
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">{placements}+</div>
-                <div className="text-gray-700 dark:text-gray-300">Successful Placements</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
+                  {placements}+
+                </div>
+                <div className="text-gray-700 dark:text-gray-300">
+                  Successful Placements
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">24/7</div>
-                <div className="text-gray-700 dark:text-gray-300">Expert Support</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
+                  24/7
+                </div>
+                <div className="text-gray-700 dark:text-gray-300">
+                  Expert Support
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">{successRate}%</div>
-                <div className="text-gray-700 dark:text-gray-300">Success Rate</div>
+                <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
+                  {successRate}%
+                </div>
+                <div className="text-gray-700 dark:text-gray-300">
+                  Success Rate
+                </div>
               </div>
             </div>
           </div>
@@ -280,15 +312,22 @@ const Home = () => {
             {benefits.map((benefit, index) => {
               const Icon = iconMap[benefit.icon];
               return (
-                <Card key={index} className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
+                <Card
+                  key={index}
+                  className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer"
+                >
                   <CardHeader>
                     <div className="mx-auto bg-blue-100 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4">
                       <Icon className="h-8 w-8 text-blue-400 dark:text-blue-300" />
                     </div>
-                    <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">{benefit.title}</CardTitle>
+                    <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">
+                      {benefit.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-700 dark:text-gray-300">{benefit.description}</p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {benefit.description}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -362,7 +401,9 @@ const Home = () => {
                   key={index}
                   onClick={() => setCurrentTestimonial(index)}
                   className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonial ? "bg-green-600" : "bg-gray-300"
+                    index === currentTestimonial
+                      ? "bg-green-600"
+                      : "bg-gray-300"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
@@ -385,24 +426,37 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {pricingPlans.map((plan, idx) => (
-              <Card key={plan.name} className="hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white">
+              <Card
+                key={plan.name}
+                className="hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white"
+              >
                 <CardHeader className="text-center">
-                  <CardTitle className="text-2xl text-blue-700 dark:text-blue-300 font-semibold">{plan.name}</CardTitle>
+                  <CardTitle className="text-2xl text-blue-700 dark:text-blue-300 font-semibold">
+                    {plan.name}
+                  </CardTitle>
                   <div className="text-4xl font-bold text-blue-700 dark:text-blue-300">
                     {plan.price}
-                    <span className="text-lg text-gray-700 dark:text-gray-300">/{plan.period}</span>
+                    <span className="text-lg text-gray-700 dark:text-gray-300">
+                      /{plan.period}
+                    </span>
                   </div>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-3 mb-12">
                     {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-300">
+                      <li
+                        key={featureIndex}
+                        className="flex items-center text-gray-700 dark:text-gray-300"
+                      >
                         <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mr-3" />
                         <span>{feature}</span>
                       </li>
                     ))}
                   </ul>
-                  <Button className="w-full mt-12 bg-green-600 hover:bg-green-700 text-white font-bold" size="lg">
+                  <Button
+                    className="w-full mt-12 bg-green-600 hover:bg-green-700 text-white font-bold"
+                    size="lg"
+                  >
                     Get Started
                   </Button>
                 </CardContent>
@@ -425,7 +479,10 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {trainingPrograms.map((program) => (
-              <Card key={program.id} className=" text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white">
+              <Card
+                key={program.id}
+                className=" text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer dark:border-white"
+              >
                 <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
                   <img
                     src={program.image}
@@ -435,8 +492,12 @@ const Home = () => {
                   />
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">{program.title}</CardTitle>
-                  <CardDescription className="text-gray-700 dark:text-gray-300">{program.description}</CardDescription>
+                  <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">
+                    {program.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-700 dark:text-gray-300">
+                    {program.description}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3 mb-4">
@@ -449,7 +510,9 @@ const Home = () => {
                       <span className="font-semibold">{program.level}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-700 dark:text-gray-300">Price:</span>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Price:
+                      </span>
                       <span className="font-bold text-blue-700 dark:text-blue-300 text-lg">
                         {program.price}
                       </span>
@@ -457,12 +520,19 @@ const Home = () => {
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {program.technologies.slice(0, 3).map((tech, index) => (
-                      <Badge key={index} variant="outline" className="text-xs text-blue-700 dark:text-blue-300 border-blue-200 dark:border-gray-700 bg-blue-50 dark:bg-gray-800">
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="text-xs text-blue-700 dark:text-blue-300 border-blue-200 dark:border-gray-700 bg-blue-50 dark:bg-gray-800"
+                      >
                         {tech}
                       </Badge>
                     ))}
                   </div>
-                  <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white font-bold">
+                  <Button
+                    asChild
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold"
+                  >
                     <Link to={`/trainings/${program.id}`}>
                       View Details <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -472,7 +542,12 @@ const Home = () => {
             ))}
           </div>
           <div className="text-center mt-8">
-            <Button asChild size="lg" variant="outline" className="bg-white dark:bg-[#23272f] text-blue-700 border-blue-700 hover:bg-blue-50 dark:hover:bg-[#23272f] font-bold">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="bg-white dark:bg-[#23272f] text-blue-700 border-blue-700 hover:bg-blue-50 dark:hover:bg-[#23272f] font-bold"
+            >
               <Link to="/trainings">View All Programs</Link>
             </Button>
           </div>
