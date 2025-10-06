@@ -82,4 +82,103 @@ const sendOTPEmail = async (email, otp, userType = "user") => {
 module.exports = {
   generateOTP,
   sendOTPEmail,
+  // Sends a generic HTML email to an admin address defined in the environment
+  sendAdminNotificationEmail: async (subject, html) => {
+    const toAddress = process.env.ADMIN_EMAIL || process.env.EMAIL_USER;
+    if (!toAddress) {
+      console.error("ADMIN_EMAIL/EMAIL_USER not configured. Cannot send admin notification.");
+      return false;
+    }
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER || "laptoptest7788@gmail.com",
+        to: toAddress,
+        subject,
+        html,
+      });
+      return true;
+    } catch (error) {
+      console.error("Failed to send admin notification:", error);
+      return false;
+    }
+  },
+  // Build a rich HTML template for admin notifications (Inquiry)
+  buildInquiryEmailTemplate: (data) => {
+    const {
+      name = "-",
+      email = "-",
+      contact = "-",
+      tech = "-",
+      helpType = "-",
+      message,
+      submittedAt = new Date().toISOString(),
+      downloadUrl,
+    } = data || {};
+
+    return `
+      <div style="font-family:Inter, -apple-system, Segoe UI, Roboto, Arial, 'Helvetica Neue', Helvetica, 'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol'; background:#0b1020; padding:32px;">
+        <div style="max-width:640px; margin:0 auto; background:#0f1530; border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.45);">
+          <div style="background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 50%,#ec4899 100%); padding:28px 24px; color:#fff;">
+            <div style="font-size:18px; opacity:.9; letter-spacing:.4px;">SkillTwin</div>
+            <div style="font-size:26px; font-weight:700; margin-top:4px;">New Inquiry</div>
+          </div>
+
+          <div style="padding:28px; color:#e5e7eb;">
+            <p style="margin:0 0 18px 0; font-size:15px; color:#cbd5e1;">A new inquiry has been submitted. Details are below.</p>
+
+            <table cellpadding="0" cellspacing="0" role="presentation" style="width:100%; border-collapse:separate; border-spacing:0 10px;">
+              <tbody>
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Name</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px; font-weight:600;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Email</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px;">
+                    <a href="mailto:${email}" style="color:#60a5fa; text-decoration:none;">${email}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Phone</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px;">${contact}</td>
+                </tr>
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Technology</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px;">${tech}</td>
+                </tr>
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Help Type</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px;">${helpType}</td>
+                </tr>
+                ${message ? `
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px; vertical-align:top;">Message</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:12px 14px; border-radius:8px; line-height:1.6; white-space:pre-wrap;">${message}</td>
+                </tr>` : ''}
+                <tr>
+                  <td style="width:180px; color:#94a3b8; font-size:13px;">Submitted</td>
+                  <td style="background:#0b1020; border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:8px; color:#94a3b8;">${submittedAt}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top:22px; display:flex; gap:12px;">
+              <a href="mailto:${email}" style="display:inline-block; padding:10px 14px; background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%); color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:14px;">Reply to ${name}</a>
+              ${downloadUrl ? `<a href="${downloadUrl}" style="display:inline-block; padding:10px 14px; background:#0b1020; color:#cbd5e1; border:1px solid rgba(255,255,255,0.12); border-radius:10px; text-decoration:none; font-weight:600; font-size:14px;">
+                <span style="vertical-align:middle; display:inline-block; width:14px; height:14px; margin-right:8px;">
+                  <!-- download icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#cbd5e1"><path d="M5 20h14v-2H5v2zm7-18l-5 5h3v6h4V7h3l-5-5z"/></svg>
+                </span>
+                Download Copy
+              </a>` : ''}
+            </div>
+          </div>
+
+          <div style="padding:18px 24px; background:#0b1020; color:#64748b; font-size:12px; border-top:1px solid rgba(255,255,255,0.06); text-align:center;">
+            © ${new Date().getFullYear()} SkillTwin. All rights reserved.
+          </div>
+        </div>
+      </div>
+    `;
+  },
 };
