@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,44 +9,27 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, Mail, Phone } from "lucide-react";
+import apiService from "@/services/api";
 
 const Enrollments = () => {
-  // Mock data - replace with real API calls
-  const enrollments = [
-    {
-      id: 1,
-      studentName: "Alice Johnson",
-      email: "alice@example.com",
-      phone: "+1234567890",
-      trainingName: "Full Stack React Development",
-      schedule: "2024-01-20 to 2024-03-20",
-      status: "active",
-      progress: 65,
-      enrolledAt: "2024-01-15T10:30:00Z",
-    },
-    {
-      id: 2,
-      studentName: "Bob Smith",
-      email: "bob@example.com",
-      phone: "+1987654321",
-      trainingName: "Python for Data Science",
-      schedule: "2024-02-01 to 2024-04-01",
-      status: "upcoming",
-      progress: 0,
-      enrolledAt: "2024-01-14T15:45:00Z",
-    },
-    {
-      id: 3,
-      studentName: "Carol Davis",
-      email: "carol@example.com",
-      phone: "+1122334455",
-      trainingName: "Advanced Node.js",
-      schedule: "2023-12-01 to 2024-02-01",
-      status: "completed",
-      progress: 100,
-      enrolledAt: "2023-11-28T09:15:00Z",
-    },
-  ];
+  const [enrollments, setEnrollments] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      const res = await apiService.fetchEnrollments();
+      if (res.success) {
+        setEnrollments(res.data || []);
+      } else {
+        setError(res.error || "Failed to load enrollments");
+      }
+      setLoading(false);
+    };
+    load();
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -65,6 +48,8 @@ const Enrollments = () => {
 
   return (
     <div className="space-y-4 lg:space-y-6">
+      {loading && <div className="text-sm text-gray-500">Loading...</div>}
+      {error && <div className="text-sm text-red-600">{error}</div>}
       {/* Header */}
       <div>
         <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">

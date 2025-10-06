@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
+import WhatsAppFloating from "./components/WhatsAppFloating";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const AppContent = () => {
         </Routes>
       </main>
       <Footer />
+      <WhatsAppFloating />
     </div>
   );
 };

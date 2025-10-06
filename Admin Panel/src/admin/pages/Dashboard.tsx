@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -7,66 +7,44 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Users, GraduationCap, CheckCircle, Clock } from "lucide-react";
+import apiService from "@/services/api";
 
 const Dashboard = () => {
-  // Mock data - replace with real API calls
-  const stats = [
-    {
-      title: "Total Inquiries",
-      value: "847",
-      change: "+12% from last month",
-      icon: Users,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-    },
-    {
-      title: "Active Enrollments",
-      value: "234",
-      change: "+8% from last month",
-      icon: GraduationCap,
-      color: "text-green-600",
-      bgColor: "bg-green-100",
-    },
-    {
-      title: "Completed Sessions",
-      value: "1,429",
-      change: "+23% from last month",
-      icon: CheckCircle,
-      color: "text-purple-600",
-      bgColor: "bg-purple-100",
-    },
-    {
-      title: "Pending Tasks",
-      value: "67",
-      change: "-5% from last month",
-      icon: Clock,
-      color: "text-orange-600",
-      bgColor: "bg-orange-100",
-    },
-  ];
+  const [stats, setStats] = useState<any[]>([]);
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const recentActivity = [
-    {
-      type: "New Inquiry",
-      message: "React.js training inquiry from John Doe",
-      time: "2 minutes ago",
-    },
-    {
-      type: "Enrollment",
-      message: "Python course enrollment completed",
-      time: "15 minutes ago",
-    },
-    {
-      type: "Task Assigned",
-      message: "Angular task assigned to Expert Sarah",
-      time: "1 hour ago",
-    },
-    {
-      type: "Session Complete",
-      message: "Node.js session completed by Mike Johnson",
-      time: "2 hours ago",
-    },
-  ];
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      const [leadsRes, enrollRes] = await Promise.all([
+        apiService.fetchLeads(),
+        apiService.fetchEnrollments(),
+      ]);
+
+      if (leadsRes.success && enrollRes.success) {
+        const leads = leadsRes.data || [];
+        const enrolls = enrollRes.data || [];
+        setStats([
+          { title: "Total Inquiries", value: String(leads.length), change: "", icon: Users, color: "text-blue-600", bgColor: "bg-blue-100" },
+          { title: "Active Enrollments", value: String(enrolls.filter((e:any)=>e.status==="active").length), change: "", icon: GraduationCap, color: "text-green-600", bgColor: "bg-green-100" },
+          { title: "Completed Sessions", value: "-", change: "", icon: CheckCircle, color: "text-purple-600", bgColor: "bg-purple-100" },
+          { title: "Pending Tasks", value: "-", change: "", icon: Clock, color: "text-orange-600", bgColor: "bg-orange-100" },
+        ]);
+        const ra = [
+          ...leads.slice(0, 5).map((l:any) => ({ type: "New Inquiry", message: `${l.tech} inquiry from ${l.name}`, time: new Date(l.createdAt).toLocaleString() })),
+          ...enrolls.slice(0, 5).map((e:any) => ({ type: "Enrollment", message: `${e.programTitle || e.trainingName || "Program"} enrollment by ${e.name || e.studentName}`, time: new Date(e.createdAt).toLocaleString() })),
+        ].slice(0, 5);
+        setRecentActivity(ra);
+      } else {
+        setError(leadsRes.error || enrollRes.error || "Failed to load dashboard data");
+      }
+      setLoading(false);
+    };
+    load();
+  }, []);
 
   return (
     <div className="space-y-4 lg:space-y-6">

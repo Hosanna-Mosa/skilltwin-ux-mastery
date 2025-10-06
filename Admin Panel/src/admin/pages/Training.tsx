@@ -37,66 +37,7 @@ interface Training {
 }
 
 const Training = () => {
-  const [trainings, setTrainings] = useState<Training[]>([
-    {
-      id: "java-fullstack",
-      title: "Java Full Stack Development",
-      description: "Master Java backend and modern frontend technologies",
-      duration: "4 months",
-      level: "Beginner to Advanced",
-      price: "$1299",
-      image: "/course-images/Java-Full-Stack.png",
-      technologies: ["Java", "Spring Boot", "React", "MySQL"],
-      syllabus: [
-        "Java Fundamentals & OOP",
-        "Spring Framework & Spring Boot",
-        "REST APIs & Microservices",
-        "Database Design & MySQL",
-        "Frontend with React",
-        "Deployment & DevOps",
-      ],
-      isActive: true,
-    },
-    {
-      id: "ai-ml",
-      title: "AI & Machine Learning",
-      description:
-        "Build intelligent applications with Python and ML frameworks",
-      duration: "6 months",
-      level: "Intermediate",
-      price: "$1599",
-      image: "/course-images/AIML.png",
-      technologies: ["Python", "TensorFlow", "PyTorch", "Pandas"],
-      syllabus: [
-        "Python for Data Science",
-        "Machine Learning Algorithms",
-        "Deep Learning with TensorFlow",
-        "Natural Language Processing",
-        "Computer Vision",
-        "Model Deployment",
-      ],
-      isActive: true,
-    },
-    {
-      id: "devops",
-      title: "DevOps & Cloud Engineering",
-      description: "Master modern DevOps practices and cloud platforms",
-      duration: "3 months",
-      level: "Intermediate to Advanced",
-      price: "$999",
-      image: "/course-images/Devops.png",
-      technologies: ["AWS", "Docker", "Kubernetes", "Jenkins"],
-      syllabus: [
-        "Linux & Shell Scripting",
-        "Docker & Containerization",
-        "Kubernetes Orchestration",
-        "AWS Cloud Services",
-        "CI/CD with Jenkins",
-        "Infrastructure as Code",
-      ],
-      isActive: true,
-    },
-  ]);
+  const [trainings, setTrainings] = useState<Training[]>([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isAdding, setIsAdding] = useState(false);

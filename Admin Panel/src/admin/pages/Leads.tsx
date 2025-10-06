@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -16,68 +16,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Search,
-  Filter,
-  Download,
-  Eye,
-  Mail,
-  Phone,
-  Calendar,
-  User,
-} from "lucide-react";
+import { Search, Filter, Download, Eye, Mail, Phone, Calendar, User } from "lucide-react";
+import apiService from "@/services/api";
 
 const Leads = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
+  const [leads, setLeads] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Mock data - replace with real API calls
-  const leads = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      phone: "+1234567890",
-      technology: "React.js",
-      helpType: "Training",
-      message: "Looking for advanced React training with hooks and context.",
-      status: "new",
-      createdAt: "2024-01-15T10:30:00Z",
-    },
-    {
-      id: 2,
-      name: "Sarah Smith",
-      email: "sarah@example.com",
-      phone: "+1987654321",
-      technology: "Python",
-      helpType: "Assignment Help",
-      message: "Need help with Django REST API development.",
-      status: "assigned",
-      createdAt: "2024-01-14T15:45:00Z",
-    },
-    {
-      id: 3,
-      name: "Mike Johnson",
-      email: "mike@example.com",
-      phone: "+1122334455",
-      technology: "Node.js",
-      helpType: "Training",
-      message: "Complete beginner looking for Node.js fundamentals.",
-      status: "completed",
-      createdAt: "2024-01-13T09:15:00Z",
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      email: "emily@example.com",
-      phone: "+1555666777",
-      technology: "Angular",
-      helpType: "Project Support",
-      message: "Need guidance on building an enterprise Angular application.",
-      status: "in-progress",
-      createdAt: "2024-01-12T14:20:00Z",
-    },
-  ];
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      setError(null);
+      const res = await apiService.fetchLeads();
+      if (res.success) {
+        setLeads(res.data || []);
+      } else {
+        setError(res.error || "Failed to load leads");
+      }
+      setLoading(false);
+    };
+    load();
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -94,15 +56,32 @@ const Leads = () => {
     }
   };
 
-  const filteredLeads = leads.filter((lead) => {
-    const matchesSearch =
-      lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.technology.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter =
-      filterStatus === "all" || lead.status === filterStatus;
-    return matchesSearch && matchesFilter;
+  const normalizeLead = (l: any) => ({
+    id: l.id || l._id,
+    name: l.name || "",
+    email: l.email || "",
+    phone: l.phone || l.contact || "",
+    technology: l.technology || l.tech || "",
+    helpType: l.helpType || "",
+    status: l.status || "new",
+    message: l.message || "",
+    createdAt: l.createdAt || new Date().toISOString(),
   });
+
+  const filteredLeads = useMemo(() => {
+    const list = (leads || []).map(normalizeLead);
+    const term = searchTerm.toLowerCase();
+    return list.filter((lead) => {
+      const matchesSearch =
+        lead.name.toLowerCase().includes(term) ||
+        lead.email.toLowerCase().includes(term) ||
+        lead.technology.toLowerCase().includes(term) ||
+        lead.helpType.toLowerCase().includes(term);
+      const matchesFilter =
+        filterStatus === "all" || lead.status === filterStatus;
+      return matchesSearch && matchesFilter;
+    });
+  }, [leads, searchTerm, filterStatus]);
 
   return (
     <div className="space-y-4 lg:space-y-6">

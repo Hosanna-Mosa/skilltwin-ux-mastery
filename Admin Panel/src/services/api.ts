@@ -1,4 +1,4 @@
-import networkMiddleware from '../utils/networkMiddleware';
+// Network middleware removed
 
 const API_BASE_URL =
   (import.meta as any).env?.VITE_API_URL || "http://localhost:8000/api";
@@ -47,40 +47,38 @@ class ApiService {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<ApiResponse<T>> {
-    return networkMiddleware.withConnectionCheck(async () => {
-      try {
-        const url = `${this.baseURL}${endpoint}`;
-        const config: RequestInit = {
-          headers: {
-            "Content-Type": "application/json",
-            ...options.headers,
-          },
-          ...options,
-        };
+    try {
+      const url = `${this.baseURL}${endpoint}`;
+      const config: RequestInit = {
+        headers: {
+          "Content-Type": "application/json",
+          ...options.headers,
+        },
+        ...options,
+      };
 
-        const response = await fetch(url, config);
-        const data = await response.json();
+      const response = await fetch(url, config);
+      const data = await response.json();
 
-        if (!response.ok) {
-          return {
-            success: false,
-            error: data.message || `HTTP error! status: ${response.status}`,
-            errorType: data.errorType,
-          };
-        }
-
-        return {
-          success: true,
-          data,
-        };
-      } catch (error) {
-        console.error("API request failed:", error);
+      if (!response.ok) {
         return {
           success: false,
-          error: error instanceof Error ? error.message : "Network error",
+          error: data.message || `HTTP error! status: ${response.status}`,
+          errorType: data.errorType,
         };
       }
-    }, { requireConnectivityTest: false }); // Don't require connectivity test for API calls
+
+      return {
+        success: true,
+        data,
+      };
+    } catch (error) {
+      console.error("API request failed:", error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Network error",
+      };
+    }
   }
 
   // Admin Authentication
@@ -145,6 +143,30 @@ class ApiService {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    });
+  }
+
+  // Admin data: Leads
+  async fetchLeads(): Promise<ApiResponse<any[]>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      return { success: false, error: "No authentication token found" };
+    }
+    return this.request<any[]>("/admin/leads", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  // Admin data: Enrollments
+  async fetchEnrollments(): Promise<ApiResponse<any[]>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      return { success: false, error: "No authentication token found" };
+    }
+    return this.request<any[]>("/admin/enrollments", {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
 }
