@@ -1,6 +1,6 @@
 // API service for handling form submissions and data fetching
 
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "https://skilltwin-ux-mastery-backend.onrender.com/api" || "http://localhost:8000/api";
 
 class ApiService {
   async post(endpoint, data) {
