@@ -239,7 +239,89 @@ const Home = () => {
       {/* Inquiry Form Section */}
       <section className="py-16 bg-gray-50 dark:bg-[#23272f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <InquiryForm />
+          <div className="flex flex-col lg:flex-row gap-12 items-stretch">
+            {/* Left Content */}
+            <div className="flex-1 flex flex-col justify-between space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white mb-4">
+                  Ready to Transform Your Career?
+                </h2>
+                <p className="text-xl text-gray-700 dark:text-gray-300 mb-6">
+                  Get personalized guidance from our industry experts and take the next step towards your dream tech career.
+                </p>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                      <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
+                      Free Career Consultation
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Get a personalized career roadmap tailored to your goals and experience level.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                      <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
+                      Expert Mentorship
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Connect with industry professionals who have walked the same path you're on.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+                      <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-black dark:text-white mb-2">
+                      Job Placement Support
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Access our network of 500+ companies actively hiring tech professionals.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center space-x-3 mb-3">
+                  <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Trusted by 500+ professionals</span>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  "SkillTwin helped me transition from a non-tech background to a senior developer role in just 6 months. The mentorship and support were invaluable."
+                </p>
+                <p className="text-sm font-medium text-gray-800 dark:text-gray-200 mt-2">
+                  - Sarah Johnson, Senior Frontend Developer
+                </p>
+              </div>
+            </div>
+            
+            {/* Right Content - Form */}
+            <div className="flex-1 lg:pl-8 flex items-center">
+              <div className="w-full">
+                <InquiryForm />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -316,28 +398,44 @@ const Home = () => {
               What Our Clients Say
             </h2>
           </div>
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <Card className="text-center dark:border-white">
               <CardContent className="pt-8">
-                <div className="flex justify-center mb-4">
-                  {[...Array(testimonials[currentTestimonial].rating)].map(
-                    (_, i) => (
-                      <Star
-                        key={i}
-                        className="h-5 w-5 text-green-600 dark:text-green-400 fill-current"
-                      />
-                    )
-                  )}
-                </div>
-                <blockquote className="text-xl text-gray-700 dark:text-gray-300 mb-6">
-                  "{testimonials[currentTestimonial].content}"
-                </blockquote>
-                <div>
-                  <div className="font-semibold text-blue-700 dark:text-blue-300">
-                    {testimonials[currentTestimonial].name}
+                <div className="flex flex-col items-center">
+                  {/* Profile Image */}
+                  <div className="mb-6">
+                    <img
+                      src={`https://ui-avatars.com/api/?name=${encodeURIComponent(testimonials[currentTestimonial].name)}&background=3b82f6&color=ffffff&size=80&bold=true`}
+                      alt={testimonials[currentTestimonial].name}
+                      className="w-20 h-20 rounded-full object-cover border-4 border-blue-200 dark:border-blue-700"
+                    />
                   </div>
-                  <div className="text-gray-700 dark:text-gray-300">
-                    {testimonials[currentTestimonial].role}
+                  
+                  {/* Rating Stars */}
+                  <div className="flex justify-center mb-4">
+                    {[...Array(testimonials[currentTestimonial].rating)].map(
+                      (_, i) => (
+                        <Star
+                          key={i}
+                          className="h-5 w-5 text-green-600 dark:text-green-400 fill-current"
+                        />
+                      )
+                    )}
+                  </div>
+                  
+                  {/* Testimonial Content */}
+                  <blockquote className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    "{testimonials[currentTestimonial].content}"
+                  </blockquote>
+                  
+                  {/* Author Info */}
+                  <div>
+                    <div className="font-semibold text-blue-700 dark:text-blue-300 text-lg">
+                      {testimonials[currentTestimonial].name}
+                    </div>
+                    <div className="text-gray-700 dark:text-gray-300">
+                      {testimonials[currentTestimonial].role}
+                    </div>
                   </div>
                 </div>
               </CardContent>

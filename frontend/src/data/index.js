@@ -17,6 +17,25 @@ export const benefits = [
       "Choose from various support options that fit your schedule and learning preferences.",
     icon: "clock",
   },
+  {
+    title: "Fast Response",
+    description:
+      "Get expert help within 24 hours. Our team is ready to support your career goals immediately.",
+    icon: "zap",
+  },
+  {
+    title: "Secure & Confidential",
+    description:
+      "Your privacy is our priority. All sessions and data are handled with complete confidentiality.",
+    icon: "shield",
+  },
+  {
+    title: "Flexible Support",
+    description:
+      "Choose from various support options that fit your schedule and learning preferences.",
+    icon: "clock",
+  },
+
 ];
 
 export const techStack = [
@@ -41,6 +60,7 @@ export const testimonials = [
     content:
       "SkillTwin's job support helped me land my dream job at Google. The mock interviews were incredibly helpful!",
     rating: 5,
+    image: "/testimonial-images/sarah-johnson.jpg",
   },
   {
     name: "Mike Chen",
@@ -48,6 +68,7 @@ export const testimonials = [
     content:
       "The training programs are top-notch. I went from beginner to confident developer in just 6 months.",
     rating: 5,
+    image: "/testimonial-images/mike-chen.jpg",
   },
   {
     name: "Emily Davis",
@@ -55,6 +76,7 @@ export const testimonials = [
     content:
       "Professional, knowledgeable, and always available when I needed help. Highly recommend!",
     rating: 5,
+    image: "/testimonial-images/emily-davis.jpg",
   },
 ];
 

@@ -27,6 +27,7 @@ const AdminLayout = () => {
     { name: "Enrollments", href: "/admin/enrollments", icon: GraduationCap },
     { name: "Services", href: "/admin/services", icon: Briefcase },
     { name: "Training", href: "/admin/training", icon: BookOpen },
+    { name: "Blogs", href: "/admin/blogs", icon: BookOpen },
     { name: "Experts", href: "/admin/experts", icon: UserCheck },
     { name: "Sessions", href: "/admin/sessions", icon: Calendar },
   ];

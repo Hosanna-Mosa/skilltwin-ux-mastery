@@ -58,7 +58,24 @@ class ApiService {
       };
 
       const response = await fetch(url, config);
-      const data = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      let data: any = null;
+      if (contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        if (!response.ok) {
+          return {
+            success: false,
+            error: text || `HTTP error! status: ${response.status}`,
+          };
+        }
+        // For successful non-JSON responses, pass back raw text
+        return {
+          success: true,
+          data: text as unknown as T,
+        };
+      }
 
       if (!response.ok) {
         return {
@@ -166,6 +183,49 @@ class ApiService {
     }
     return this.request<any[]>("/admin/enrollments", {
       method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  // Blogs CRUD (protected)
+  async fetchBlogs(params?: { page?: number; limit?: number }): Promise<ApiResponse<any>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) return { success: false, error: "No authentication token found" };
+    const query = new URLSearchParams({
+      page: String(params?.page ?? 1),
+      limit: String(params?.limit ?? 20),
+    }).toString();
+    return this.request<any>(`/blogs?${query}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  async createBlog(payload: any): Promise<ApiResponse<any>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) return { success: false, error: "No authentication token found" };
+    return this.request<any>(`/blogs`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async updateBlog(idOrSlug: string, payload: any): Promise<ApiResponse<any>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) return { success: false, error: "No authentication token found" };
+    return this.request<any>(`/blogs/${idOrSlug}`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify(payload),
+    });
+  }
+
+  async deleteBlog(idOrSlug: string): Promise<ApiResponse<any>> {
+    const token = localStorage.getItem("adminToken");
+    if (!token) return { success: false, error: "No authentication token found" };
+    return this.request<any>(`/blogs/${idOrSlug}`, {
+      method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
   }

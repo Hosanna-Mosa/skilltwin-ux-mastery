@@ -153,6 +153,40 @@ const About = () => {
                 </p>
               </CardContent>
             </Card>
+
+            <Card className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer bg-white dark:bg-[#23272f]">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold dark:text-blue-300">
+                  <Target className="h-6 w-6 mr-3 text-blue-400" />
+                  Our Mission
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 leading-relaxed dark:text-gray-300">
+                  To empower tech professionals with the knowledge, skills, and support they need 
+                  to achieve their career goals. We provide personalized guidance, comprehensive 
+                  training, and ongoing mentorship to help individuals navigate the competitive 
+                  tech industry successfully.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-black dark:border-white text-center hover:shadow-2xl transition-shadow hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer bg-white dark:bg-[#23272f]">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center text-blue-700 font-semibold dark:text-blue-300">
+                  <Target className="h-6 w-6 mr-3 text-blue-400" />
+                  Our Mission
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 leading-relaxed dark:text-gray-300">
+                  To empower tech professionals with the knowledge, skills, and support they need 
+                  to achieve their career goals. We provide personalized guidance, comprehensive 
+                  training, and ongoing mentorship to help individuals navigate the competitive 
+                  tech industry successfully.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

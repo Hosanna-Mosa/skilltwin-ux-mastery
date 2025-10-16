@@ -11,6 +11,8 @@ import Trainings from "./pages/Trainings";
 import TrainingDetail from "./pages/TrainingDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Blogs from "./pages/Blogs";
+import BlogDetail from "./pages/BlogDetail";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
@@ -35,6 +37,8 @@ const AppContent = () => {
           <Route path="/trainings" element={<Trainings />} />
           <Route path="/trainings/:id" element={<TrainingDetail />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
