@@ -68,8 +68,8 @@ const Trainings = () => {
                     style={{ objectFit: "inherit" }}
                   />
                 </div>
-                <CardHeader className="flex-1">
-                  <div className="flex justify-between items-start mb-2">
+                <CardHeader>
+                  {/* <div className="flex justify-between items-start mb-2">
                     <Badge variant="secondary" className="text-xs">
                       {program.level}
                     </Badge>
@@ -78,21 +78,16 @@ const Trainings = () => {
                         {program.price}
                       </span>
                     </div>
-                  </div>
-                  <CardTitle className="text-xl text-blue-700 font-semibold dark:text-blue-300">{program.title}</CardTitle>
-                  <CardDescription className="text-gray-700 dark:text-gray-300">{program.description}</CardDescription>
+                  </div> */}
+                   <CardTitle className="text-xl text-blue-700 dark:text-blue-300 font-semibold">
+                    {program.title}
+                  </CardTitle>
+                  <CardDescription className="text-gray-700 dark:text-gray-300">
+                    {program.description}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="space-y-3 mb-4">
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
-                      <Clock className="h-4 w-4 mr-2" />
-                      <span>Duration: {program.duration}</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
-                      <Star className="h-4 w-4 mr-2 text-yellow-500" />
-                      <span>4.8/5 (120+ reviews)</span>
-                    </div>
-                  </div>
+                  {/* s */}
                   
                   <div className="mb-4">
                     <h4 className="font-semibold text-sm mb-2">Technologies:</h4>

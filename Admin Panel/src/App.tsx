@@ -13,6 +13,7 @@ import Leads from "@/admin/pages/Leads";
 import Enrollments from "@/admin/pages/Enrollments";
 import Services from "@/admin/pages/Services";
 import Training from "@/admin/pages/Training";
+import Blogs from "@/admin/pages/Blogs";
 import Experts from "@/admin/pages/Experts";
 import Sessions from "@/admin/pages/Sessions";
 import Index from "./pages/Index";
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="enrollments" element={<Enrollments />} />
               <Route path="services" element={<Services />} />
               <Route path="training" element={<Training />} />
+              <Route path="blogs" element={<Blogs />} />
               <Route path="experts" element={<Experts />} />
               <Route path="sessions" element={<Sessions />} />
             </Route>
